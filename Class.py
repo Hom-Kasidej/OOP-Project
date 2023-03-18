@@ -3,29 +3,108 @@ class Account:
     def __init__(self):
         self.accounts = []
 
+    def add_to_account():
+        pass
+
+    def check_account():
+        pass
+
+
+
 class User:
 
-    def __init__(self, name, profile_image, gender, birth_date, info):
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
         self.name = name
         self.profile_image = profile_image
         self.gender = gender
         self.birth_date = birth_date
         self.info = info
+        self.username = username
+        self.password = password
+
+    def view_car():
+        pass
+
+    def search_car():
+        pass
+
+    def search_cartype():
+        pass
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, accept_rate, respond_rate, respond_time):
-        super().__init__(name, profile_image, gender, birth_date, info)
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, accept_rate, respond_rate, respond_time):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password)
         self.accept_rate = accept_rate
         self.respond_rate = respond_rate
         self.respond_time = respond_time
         self.car_list = []
 
+        def create_car():
+            pass
+
+        def add_to_carcatalog():
+            pass
+
+        def modify_car():
+            pass
+
+        def remove_car(self):
+            pass
+
+        def deleted_car():
+            pass
+
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_day, info):
-        super().__init__(name, profile_image, gender, birth_day, info) 
+    def __init__(self, name, profile_image, gender, birth_day, info, username, password):
+        super().__init__(name, profile_image, gender, birth_day, info, username, password) 
         self.rent_list = []
+        self.success_list = []
+        self.canceled_list = []
+        self.incomplete_list = []
+
+    def cancel_payment():
+        pass
+
+    def cancel_rent():
+        pass
+
+    def add_to_success_list():
+        pass
+
+    def add_to_canceled_list():
+        pass
+
+    def add_to_incomplete_list():
+        pass
+
+    def del_in_success_list():
+        pass
+    
+    def del_in_canceled_list():
+        pass
+    
+    def del_in_incomplete_list():
+        pass
+
+    def make_rent(self,rlocation,car,check_in_date,check_out_date):
+        pass
+
+
+class CarType:
+
+    def __init__(self):
+        self.car_catalogs = []
+
+    def add_to_cartype(self,car_catalog):
+        pass
+    
+    def search_car():
+        pass
+
+    def search_cartype():
+        pass
 
 class CarCatalog:
 
@@ -33,6 +112,17 @@ class CarCatalog:
         self.name = name
         self.type_info = type_info
         self.type_image = type_image
+        self.car_list = []
+
+    def add_to_carlist():
+        pass
+
+    def collect_car(self):
+        pass
+
+    def search_car():
+        pass
+
 
 class Car:
 
@@ -69,9 +159,12 @@ class CarStatus:
     def __init__(self):
         self.rent_list = []
 
+    def update_carstatus(self,rent):
+        pass
+
 class Rent:
 
-    def __init__(self, check_in_date, check_out_date, rent_no, rent_status, rent_car, location, payment, receipt):
+    def __init__(self, check_in_date, check_out_date, rent_no, rent_status, rent_car, location = None, payment = None, receipt = None):
         self.check_in_date = check_in_date
         self.check_out_date = check_out_date
         self.location = location
@@ -80,6 +173,17 @@ class Rent:
         self.rent_status = rent_status
         self.payment = payment
         self.receipt = receipt
+
+    def create_payment(self,amount,date,type):
+        pass
+
+    def create_receipt():
+        pass
+
+    def update_rent_status():
+        pass
+
+
 
 class Receipt:
     
@@ -102,6 +206,9 @@ class Payment:
         self.payment_status = payment_status
         self.payment_no =payment_no
         self.rent = rent
+
+    def update_payment_status():
+        pass
 
 
 class CashPayment(Payment):
