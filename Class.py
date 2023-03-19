@@ -81,8 +81,8 @@ class Dealer(User):
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_day, info, username, password):
-        super().__init__(name, profile_image, gender, birth_day, info, username, password) 
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password) 
         self.__rent_list = []
         self.__success_list = []
         self.__canceled_list = []
@@ -349,3 +349,8 @@ class GPSType(Enum):
     NoneGPS = 3
     Others = 4
     Otoplug = 5
+
+
+class Gender(Enum):
+    Male = 1
+    Female = 2
