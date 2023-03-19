@@ -38,7 +38,7 @@ dict1 = {
     'birth_date' : '20/12/1999',
     'info' : 'Hi wassup',
     'username' : 'waegweg134',
-    'password' : '12412h',
+    'password' : '12412hlkk',
     'car_list' : []
     }
     
