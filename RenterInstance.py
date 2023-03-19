@@ -2,16 +2,16 @@ import Class as C
 
 renter_info_dict = {
     "Renter1" : {
-        "name" : "สมปอง พยองเดช",
+        "name" : "Sompong Payongdej",
         "profile_image" : "",
         "gender" : C.Gender.Male,
         "birth_date" : "28/02/1987",
-        "info" : "คนดีย์",
+        "info" : "Good guy",
         "username" : "Sompong",
         "password" : "ripperisthedog"
     },
     "Renter2" : {
-        "name" : "สมเสร็จ กินหญ้า",
+        "name" : "Somsej Eatgrass",
         "profile_image" : "",
         "gender" : C.Gender.Female,
         "birth_date" : "01/01/1999",
@@ -20,7 +20,7 @@ renter_info_dict = {
         "password" : "iwantgrass555"
     },
     "Renter" : {
-        "name" : "สมเจ็ท แดชหน้า",
+        "name" : "Somjett DashForward",
         "profile_image" : "",
         "gender" : C.Gender.Female,
         "birth_date" : "09/02/2000",
@@ -47,7 +47,7 @@ renter_info_dict = {
         "password" : "1234567890"
     },
     "Renter6" : {
-        "name" : "คิดจะพัก คิดถึงโอโอพี",
+        "name" : "RestWith OOP",
         "profile_image" : "",
         "gender" : C.Gender.Female,
         "birth_date" : "19/03/2003",
@@ -56,38 +56,38 @@ renter_info_dict = {
         "password" : "KhorGradeANoiKrub55"
     },
     "Renter7" : {
-        "name" : "สมหญิง แต่เป็นชาย",
+        "name" : "Somying butchai",
         "profile_image" : "",
         "gender" : C.Gender.Female,
         "birth_date" : "20/09/1997",
-        "info" : "ขอเช่ารถถูกๆหน่อยจ้า",
+        "info" : "I want cheap price",
         "username" : "Somying",
         "password" : "yinglowcost"
     },
     "Renter8" : {
-        "name" : "สมเร็ว ลูกโม่",
+        "name" : "Somrew Lookmo",
         "profile_image" : "",
         "gender" : C.Gender.Male,
         "birth_date" : "05/05/1955",
-        "info" : "บารมีพ่อแม่ :)",
-        "username" : "ลูกโม่มั๊ยย",
+        "info" : "Parents give me money :)",
+        "username" : "Want bullet?",
         "password" : "666satan666"
     },
     "Renter9" : {
-        "name" : "เคารพ ธงชาติ",
+        "name" : "Respect Thailand",
         "profile_image" : "",
         "gender" : C.Gender.Male,
         "birth_date" : "20/02/1969",
-        "info" : "บารมีพ่อหลวง",
+        "info" : "Long Live King",
         "username" : "LoveKing",
         "password" : "999KingKing"
     },
      "Renter10" : {
-        "name" : "นายกบ อ๊บอ๊บ",
+        "name" : "Frog obob",
         "profile_image" : "",
         "gender" : C.Gender.Male,
         "birth_date" : "27/12/1975",
-        "info" : "ฉันเกิดในรัชกาลที่ 9",
+        "info" : "Born in R9",
         "username" : "King9",
         "password" : "loveKingThailand"
     }
