@@ -2,41 +2,41 @@ import Class as C
 
 dict1 = {
     'Dealer1' : {
-    'name' : 'Hi',
+    'name' : 'Johnny Peepo',
     'profile_image': 'None',
     'gender' : 'male',
-    'birth_date' : '1111',
-    'info' : 'Hi',
-    'username' : 'Hi',
-    'password' : 'Hi',
+    'birth_date' : '01/01/2001',
+    'info' : 'i love cars',
+    'username' : 'johnnysoodlo',
+    'password' : 'johnny123',
     'car_list' : []
     },
     'Dealer2' : {
-    'name' : 'aafasfawf',
+    'name' : 'Somchai Hi',
     'profile_image': 'None',
     'gender' : 'male',
-    'birth_date' : '111213',
+    'birth_date' : '11/12/1974',
     'info' : 'Hi',
-    'username' : 'aaddss',
+    'username' : 'somchai911',
     'password' : 'jgdsg1231',
     'car_list' : []
     },
     'Dealer3' : {
-    'name' : 'aawdasd',
+    'name' : 'Naruto Sasuke',
     'profile_image': 'None',
     'gender' : 'male',
-    'birth_date' : '1134',
+    'birth_date' : '11/12/1950',
     'info' : 'Hi hello',
     'username' : '1qgqgqwg',
     'password' : 'aegki12124',
     'car_list' : []
     },
     'Dealer4' : {
-    'name' : 'qqwtqegh2h',
+    'name' : 'Somsri Haha',
     'profile_image': 'None',
     'gender' : 'female',
-    'birth_date' : '1111',
-    'info' : 'Hi',
+    'birth_date' : '20/12/1999',
+    'info' : 'Hi wassup',
     'username' : 'waegweg134',
     'password' : '12412h',
     'car_list' : []
