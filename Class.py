@@ -91,10 +91,10 @@ class Dealer(User):
     def modify_car(self):
         pass
 
-    def remove_car(self):
+    def remove_car(self): #remove Car in Carcatalog
         pass
 
-    def deleted_car(self):
+    def deleted_car(self): #remove Car in self.car_list
         pass
 
 
