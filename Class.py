@@ -142,17 +142,6 @@ class CarType:
     def __init__(self):
         self.__car_catalogs = []
 
-        self.add_to_car_catalog("Antique")
-        self.add_to_car_catalog("Campervan")
-        self.add_to_car_catalog("City")
-        self.add_to_car_catalog("Convertible")
-        self.add_to_car_catalog("Coupe")
-        self.add_to_car_catalog("SUV")
-        self.add_to_car_catalog("Van")
-        self.add_to_car_catalog("Sedan")
-        self.add_to_car_catalog("Utility")
-        self.add_to_car_catalog("Other")
-
     def get_car_catalogs(self):
         return self.__car_catalogs
 
@@ -195,15 +184,14 @@ class CarCatalog:
         for car in self.__car_list:
             if(car.check_status(start_date,end_date)):
                 return_car_list.append(car)
-        return car
+        return return_car_list
 
-    def search_car(self):
+    def find_car(self):
         pass
-
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, carstatus, review):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, carstatus):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -218,7 +206,7 @@ class Car:
         self.__images = images 
         self.__price = price 
         self.__carstatus = carstatus
-        self.__review = review
+        self.__review = []
 
     def get_brand(self):
         return self.__brand
@@ -348,7 +336,6 @@ class Rent:
 
     def get_receipt(self):
         return self.__receipt
-
 
     def create_payment(self,amount,date,type):
         pass
