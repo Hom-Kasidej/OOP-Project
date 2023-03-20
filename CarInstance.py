@@ -15,7 +15,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3000,
-        "carstatus" : "Available",
     },
     "Car2" : {
         "brand" : C.CarBrand.Audi,
@@ -31,7 +30,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3500,
-        "carstatus" : "Available",
     },
     "Car3" : {
         "brand" : C.CarBrand.BMW,
@@ -47,7 +45,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 4000,
-        "carstatus" : "Available",
     },
     "Car4" : {
         "brand" : C.CarBrand.BYD,
@@ -63,7 +60,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2500,
-        "carstatus" : "Available",
     },
     "Car5" : {
         "brand" : C.CarBrand.Chevrolet,
@@ -79,7 +75,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3999,
-        "carstatus" : "Available",
     },
     "Car6" : {
         "brand" : C.CarBrand.Ford,
@@ -95,7 +90,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3000,
-        "carstatus" : "Available",
     },
     "Car7" : {
         "brand" : C.CarBrand.Honda,
@@ -111,7 +105,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 1900,
-        "carstatus" : "Available",
     },
     "Car8" : {
         "brand" : C.CarBrand.Hyundai, 
@@ -127,7 +120,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 4599,
-        "carstatus" : "Available",
     },
     "Car9" : {
         "brand" : C.CarBrand.Isuzu, 
@@ -143,7 +135,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2990,
-        "carstatus" : "Available",
     },
     "Car10" : {
         "brand" : C.CarBrand.Lamborgini,
@@ -159,7 +150,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 15000,
-        "carstatus" : "Available",
     },
     "Car11" : {
         "brand" : C.CarBrand.MG, 
@@ -175,7 +165,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2600,
-        "carstatus" : "Available",
     },
     "Car12" : {
         "brand" : C.CarBrand.Nissan,
@@ -191,7 +180,6 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2099,
-        "carstatus" : "Available",
     }
 }
 
