@@ -16,7 +16,6 @@ car_info_dict = {
         "images" : "",
         "price" : 3000,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car2" : {
         "brand" : C.CarBrand.Audi,
@@ -33,7 +32,6 @@ car_info_dict = {
         "images" : "",
         "price" : 3500,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car3" : {
         "brand" : C.CarBrand.BMW,
@@ -50,7 +48,6 @@ car_info_dict = {
         "images" : "",
         "price" : 4000,
         "carstatus" : "Available",
-        "review" : "GOOD JOB"
     },
     "Car4" : {
         "brand" : C.CarBrand.BYD,
@@ -67,7 +64,6 @@ car_info_dict = {
         "images" : "",
         "price" : 2500,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car5" : {
         "brand" : C.CarBrand.Chevrolet,
@@ -84,7 +80,6 @@ car_info_dict = {
         "images" : "",
         "price" : 3999,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car6" : {
         "brand" : C.CarBrand.Ford,
@@ -101,7 +96,6 @@ car_info_dict = {
         "images" : "",
         "price" : 3000,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car7" : {
         "brand" : C.CarBrand.Honda,
@@ -118,7 +112,6 @@ car_info_dict = {
         "images" : "",
         "price" : 1900,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car8" : {
         "brand" : C.CarBrand.Hyundai, 
@@ -135,7 +128,6 @@ car_info_dict = {
         "images" : "",
         "price" : 4599,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car9" : {
         "brand" : C.CarBrand.Isuzu, 
@@ -152,7 +144,6 @@ car_info_dict = {
         "images" : "",
         "price" : 2990,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car10" : {
         "brand" : C.CarBrand.Lamborgini,
@@ -169,7 +160,6 @@ car_info_dict = {
         "images" : "",
         "price" : 15000,
         "carstatus" : "Available",
-        "review" : ""
     },
     "Car11" : {
         "brand" : C.CarBrand.MG, 
@@ -186,7 +176,6 @@ car_info_dict = {
         "images" : "",
         "price" : 2600,
         "carstatus" : "Available",
-        "review" : "",
     },
     "Car12" : {
         "brand" : C.CarBrand.Nissan,
@@ -203,10 +192,12 @@ car_info_dict = {
         "images" : "",
         "price" : 2099,
         "carstatus" : "Available",
-        "review" : "",
     }
 }
 
 Car_instance_list = []
 for i in car_info_dict:
-    Car_instance_list.append(C.Car(**car_info_dict))
+    Car_instance_list.append(C.Car(**car_info_dict[i]))
+
+for car in Car_instance_list:
+    print(car.get_brand())
