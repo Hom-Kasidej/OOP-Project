@@ -37,14 +37,9 @@ dict1 = {
         'username' : 'waegweg134',
         'password' : '12412hlkk',
     }
-    
-
 }
 
 dealer_list = []
 
 for dealer in dict1:
     dealer_list.append(C.Dealer(**dict1[dealer]))
-
-for dealer in dealer_list:
-    print(dealer.get_name())
