@@ -1,4 +1,5 @@
 from enum import Enum 
+from datetime import datetime
 class Account:
 
     def __init__(self):
@@ -45,12 +46,6 @@ class User:
         return self._password
         
     def view_car(self):
-        pass
-
-    def search_car(self):
-        pass
-
-    def search_cartype(self):
         pass
 
     def cancel_payment(self):
@@ -148,9 +143,14 @@ class CarType:
     def add_to_car_catalog(self,car_catalog):
         self.__car_catalogs.append(car_catalog)
     
-    def search_car(self):
-        pass
-
+    def search_car(self,location,start_date,end_date):
+        return_car_list = []
+        for car_catalog in self.__car_catalogs:
+            for car in car_catalog.get_car_list():
+                if(location == car.get_location() and car.check_status(start_date,end_date)):
+                    return_car_list.append(car)
+        return return_car_list
+                
     def search_cartype(self):
         pass
     
@@ -191,7 +191,7 @@ class CarCatalog:
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, carstatus):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -204,8 +204,11 @@ class Car:
         self.__features = features 
         self.__info = info 
         self.__images = images 
-        self.__price = price 
-        self.__carstatus = carstatus
+        self.__price = price
+        self.__location = location
+        self.__type = type
+        self.__car_ID = car_ID
+        self.__carstatus = []
         self.__review = []
 
     def get_brand(self):
@@ -246,6 +249,15 @@ class Car:
 
     def get_price(self):
         return self.__price
+    
+    def get_location(self):
+        return self.__location
+    
+    def get_type(self):
+        return self.__type
+    
+    def get_car_ID(self):
+        return self.__car_ID
 
     def get_carstatus(self):
         return self.__carstatus
@@ -254,10 +266,22 @@ class Car:
         return self.__review
 
     def check_status(self,start_date,end_date):
-        for rent in self.__carstatus.get_rent_list():
-            if(rent.get_check_in_date() > start_date or rent.get_check_out_date < end_date):
-                return False
+        for carstatus in self.__carstatus:
+            for rent in carstatus.get_rent_list():
+                check_st = rent.get_check_in_date()
+                check_ed = rent.get_check_out_date()
+                date_st = datetime.strptime(check_st, '%d/%m/%Y').date()
+                date_ed = datetime.strptime(check_ed, '%d/%m/%Y').date()
+                date_check_st = datetime.strptime(start_date, '%d/%m/%Y').date()
+                date_check_ed = datetime.strptime(end_date, '%d/%m/%Y').date()
+                if((date_check_st > date_st and date_check_st < date_ed) or (date_check_ed > date_st and date_check_ed < date_ed)):
+                    return False
+                elif(date_check_st <= date_st and date_check_ed >= date_ed):
+                    return False
         return True
+    
+    def add_carstatus(self,carstatus):
+        self.__carstatus.append(carstatus)
 
 class Review:
     
@@ -296,7 +320,7 @@ class CarStatus:
         return self.__rent_list
 
     def update_carstatus(self,rent):
-        pass
+        self.__rent_list.append(rent)
     
     def check_status(self):
         pass
@@ -517,3 +541,81 @@ class Status(Enum):
     Canceled = 1
     Pending = 2
     Success = 3
+class ThailandProvince(Enum):
+    Amnat_Charoen = "Amnat Charoen"
+    Ang_Thong = "Ang Thong"
+    Bangkok = "Bangkok"
+    Bueng_Kan = "Bueng Kan"
+    Buri_Ram = "Buri Ram"
+    Chachoengsao = "Chachoengsao"
+    Chai_Nat = "Chai Nat"
+    Chaiyaphum = "Chaiyaphum"
+    Chanthaburi = "Chanthaburi"
+    Chiang_Mai = "Chiang Mai"
+    Chiang_Rai = "Chiang Rai"
+    Chon_Buri = "Chon Buri"
+    Chumphon = "Chumphon"
+    Kalasin = "Kalasin"
+    Kamphaeng_Phet = "Kamphaeng Phet"
+    Kanchanaburi = "Kanchanaburi"
+    Khon_Kaen = "Khon Kaen"
+    Krabi = "Krabi"
+    Lampang = "Lampang"
+    Lamphun = "Lamphun"
+    Loei = "Loei"
+    Lopburi = "Lopburi"
+    Mae_Hong_Son = "Mae Hong Son"
+    Maha_Sarakham = "Maha Sarakham"
+    Mukdahan = "Mukdahan"
+    Nakhon_Nayok = "Nakhon Nayok"
+    Nakhon_Pathom = "Nakhon Pathom"
+    Nakhon_Phanom = "Nakhon Phanom"
+    Nakhon_Ratchasima = "Nakhon Ratchasima"
+    Nakhon_Sawan = "Nakhon Sawan"
+    Nakhon_Si_Thammarat = "Nakhon Si Thammarat"
+    Nan = "Nan"
+    Narathiwat = "Narathiwat"
+    Nong_Bua_Lam_Phu = "Nong Bua Lam Phu"
+    Nong_Khai = "Nong Khai"
+    Nonthaburi = "Nonthaburi"
+    Pathum_Thani = "Pathum Thani"
+    Pattani = "Pattani"
+    Phang_Nga = "Phang Nga"
+    Phatthalung = "Phatthalung"
+    Phayao = "Phayao"
+    Phetchabun = "Phetchabun"
+    Phetchaburi = "Phetchaburi"
+    Phichit = "Phichit"
+    Phitsanulok = "Phitsanulok"
+    Phra_Nakhon_Si_Ayutthaya = "Phra Nakhon Si Ayutthaya"
+    Phrae = "Phrae"
+    Phuket = "Phuket"
+    Prachin_Buri = "Prachin Buri"
+    Prachuap_Khiri_Khan = "Prachuap Khiri Khan"
+    Ranong = "Ranong"
+    Ratchaburi = "Ratchaburi"
+    Rayong = "Rayong"
+    Roi_Et = "Roi Et"
+    Sa_Kaeo = "Sa Kaeo"
+    Sakon_Nakhon = "Sakon Nakhon"
+    Samut_Prakan = "Samut Prakan"
+    Samut_Sakhon = "Samut Sakhon"
+    Samut_Songkhram = "Samut Songkhram"
+    Saraburi = "Saraburi"
+    Satun = "Satun"
+    Sing_Buri = "Sing Buri"
+    Sisaket = "Sisaket"
+    Songkhla = "Songkhla"
+    Sukhothai = "Sukhothai"
+    Suphan_Buri = "Suphan Buri"
+    Surat_Thani = "Surat Thani"
+    Surin = "Surin"
+    Tak = "Tak"
+    Trang = "Trang"
+    Trat = "Trat"
+    Ubon_Ratchathani = "Ubon Ratchathani"
+    Udon_Thani = "Udon Thani"
+    Uthai_Thani = "Uthai Thani"
+    Uttaradit = "Uttaradit"
+    Yala = "Yala"
+    Yasothon = "Yasothon"

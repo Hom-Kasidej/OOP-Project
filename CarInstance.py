@@ -2,7 +2,7 @@ import Class as C
 
 car_info_dict = {
     "Car1" : {
-        "brand" : C.CarBrand.Aston_martin ,
+        "brand" : C.CarBrand.Nissan ,
         "release_year" : 2005,
         "seats" : 4,
         "doors" : 4,
@@ -15,9 +15,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3000,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "City",
+        "car_ID" : "1"
     },
     "Car2" : {
-        "brand" : C.CarBrand.Audi,
+        "brand" : C.CarBrand.Honda,
         "release_year" : 2010,
         "seats" : 4,
         "doors" : 4,
@@ -30,6 +33,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3500,
+        "location" : C.ThailandProvince.Chiang_Mai,
+        "type" : "City",
+        "car_ID" : "2"
     },
     "Car3" : {
         "brand" : C.CarBrand.BMW,
@@ -45,9 +51,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 4000,
+        "location" : C.ThailandProvince.Chiang_Rai,
+        "type" : "Convertible",
+        "car_ID" : "3"
     },
     "Car4" : {
-        "brand" : C.CarBrand.BYD,
+        "brand" : C.CarBrand.Toyota,
         "release_year" : 2020,
         "seats" : 4,
         "doors" : 4,
@@ -60,6 +69,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2500,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "SUV",
+        "car_ID" : "4"
     },
     "Car5" : {
         "brand" : C.CarBrand.Chevrolet,
@@ -75,6 +87,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3999,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "SUV",
+        "car_ID" : "5"
     },
     "Car6" : {
         "brand" : C.CarBrand.Ford,
@@ -90,6 +105,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 3000,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "SUV",
+        "car_ID" : "6"
     },
     "Car7" : {
         "brand" : C.CarBrand.Honda,
@@ -105,9 +123,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 1900,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "City",
+        "car_ID" : "7"
     },
     "Car8" : {
-        "brand" : C.CarBrand.Hyundai, 
+        "brand" : C.CarBrand.Honda, 
         "release_year" : 2012,
         "seats" : 10,
         "doors" : 4,
@@ -120,9 +141,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 4599,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "City",
+        "car_ID" : "8"
     },
     "Car9" : {
-        "brand" : C.CarBrand.Isuzu, 
+        "brand" : C.CarBrand.Honda, 
         "release_year" : 2005,
         "seats" : 4,
         "doors" : 2,
@@ -135,6 +159,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2990,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "City",
+        "car_ID" : "9"
     },
     "Car10" : {
         "brand" : C.CarBrand.Lamborgini,
@@ -150,9 +177,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 15000,
+        "location" : C.ThailandProvince.Nan,
+        "type" : "Convertible",
+        "car_ID" : "10"
     },
     "Car11" : {
-        "brand" : C.CarBrand.MG, 
+        "brand" : C.CarBrand.Toyota, 
         "release_year" : 2018,
         "seats" : 7,
         "doors" : 4,
@@ -165,6 +195,9 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2600,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "SUV",
+        "car_ID" : "11"
     },
     "Car12" : {
         "brand" : C.CarBrand.Nissan,
@@ -180,12 +213,12 @@ car_info_dict = {
         "info" : "",
         "images" : "",
         "price" : 2099,
+        "location" : C.ThailandProvince.Bangkok,
+        "type" : "City",
+        "car_ID" : "12"
     }
 }
 
 Car_instance_list = []
 for i in car_info_dict:
     Car_instance_list.append(C.Car(**car_info_dict[i]))
-
-for car in Car_instance_list:
-    print(car.get_brand())
