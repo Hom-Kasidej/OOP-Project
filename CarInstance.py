@@ -62,7 +62,7 @@ car_info_dict = {
         "doors" : 4,
         "gear_type" : C.GearType.Auto,
         "fuel_type" : C.FuelType.EV,
-        "distance" : 1500,
+        "distance" : "1500",
         "gps_type" : C.GPSType.Otoplug,
         "color" : "blonde",
         "features" : "",
@@ -198,6 +198,7 @@ car_info_dict = {
         "location" : C.ThailandProvince.Bangkok,
         "type" : "SUV",
         "car_ID" : "11"
+=======
     },
     "Car12" : {
         "brand" : C.CarBrand.Nissan,
