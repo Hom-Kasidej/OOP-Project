@@ -1,4 +1,5 @@
-from enum import Enum 
+import EnumClass as EClass
+import datetime
 class Account:
 
     def __init__(self):
@@ -47,12 +48,6 @@ class User:
     def view_car(self):
         pass
 
-    def search_car(self):
-        pass
-
-    def search_cartype(self):
-        pass
-
     def cancel_payment(self):
         pass
 
@@ -94,9 +89,11 @@ class Dealer(User):
     def remove_car(self): #remove Car in Carcatalog
         pass
 
-    def deleted_car(self): #remove Car in self.car_list
+    def deleted_car(self): #remove Car in self.__car_list
         pass
 
+    def add_to_car_list(self,car): #add Car in self.__car_list
+        pass
 
 class Renter(User):
 
@@ -148,12 +145,24 @@ class CarType:
     def add_to_car_catalog(self,car_catalog):
         self.__car_catalogs.append(car_catalog)
     
-    def search_car(self):
-        pass
-
-    def search_cartype(self):
-        pass
-    
+    def search_car(self,location,start_date,end_date):
+        return_car_list = []
+        for car_catalog in self.__car_catalogs:
+            for car in car_catalog.get_car_list():
+                if(location == car.get_location() and car.check_status(start_date,end_date)):
+                    return_car_list.append(car)
+        return return_car_list
+                
+    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+        return_car_list = []
+        for car_catalog in self.__car_catalogs:
+            if(car_catalog.get_name() != cartype):
+                continue
+            else:
+                for car in car_catalog.get_car_list():
+                    if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
+                        return_car_list.append(car)
+        return return_car_list
 
 class CarCatalog:
 
@@ -191,7 +200,7 @@ class CarCatalog:
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, carstatus):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -204,8 +213,11 @@ class Car:
         self.__features = features 
         self.__info = info 
         self.__images = images 
-        self.__price = price 
-        self.__carstatus = carstatus
+        self.__price = price
+        self.__location = location
+        self.__type = type
+        self.__car_ID = car_ID
+        self.__carstatus = []
         self.__review = []
 
     def get_brand(self):
@@ -246,6 +258,15 @@ class Car:
 
     def get_price(self):
         return self.__price
+    
+    def get_location(self):
+        return self.__location
+    
+    def get_type(self):
+        return self.__type
+    
+    def get_car_ID(self):
+        return self.__car_ID
 
     def get_carstatus(self):
         return self.__carstatus
@@ -254,10 +275,22 @@ class Car:
         return self.__review
 
     def check_status(self,start_date,end_date):
-        for rent in self.__carstatus.get_rent_list():
-            if(rent.get_check_in_date() > start_date or rent.get_check_out_date < end_date):
-                return False
+        for carstatus in self.__carstatus:
+            for rent in carstatus.get_rent_list():
+                check_st = rent.get_check_in_date()
+                check_ed = rent.get_check_out_date()
+                date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
+                date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+                date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+                date_check_ed = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+                if((date_check_st > date_st and date_check_st < date_ed) or (date_check_ed > date_st and date_check_ed < date_ed)):
+                    return False
+                elif(date_check_st <= date_st and date_check_ed >= date_ed):
+                    return False
         return True
+    
+    def add_carstatus(self,carstatus):
+        self.__carstatus.append(carstatus)
 
 class Review:
     
@@ -296,7 +329,7 @@ class CarStatus:
         return self.__rent_list
 
     def update_carstatus(self,rent):
-        pass
+        self.__rent_list.append(rent)
     
     def check_status(self):
         pass
@@ -439,81 +472,3 @@ class CreditCardPayment(Payment):
 
     def get_card_exp(self):
         return self.__card_exp
-
-
-class CarBrand(Enum):
-    Aston_martin = 1
-    Audi = 2
-    BMW = 3
-    BYD = 4
-    Bentlay = 5
-    Chevrolet = 6
-    Citroen = 7
-    FOMM = 8
-    Fiat = 9
-    Ford = 10
-    GWM = 11
-    Honda = 12
-    Hyundai = 13
-    Isuzu = 14
-    Jaguar = 15
-    Jeep = 16
-    Kia = 17
-    LDV = 18
-    Lamborgini = 19
-    Land_Rover = 20
-    Lexus = 21
-    MG = 22
-    Maserati = 23
-    Mazda = 24
-    Mercedes_Benz = 25
-    Mini = 26
-    Mitsubishi = 27
-    Nissan = 28
-    Porsche = 29
-    Rolls_Royce = 30
-    Subaru = 31
-    Suzuki = 32
-    Tesla = 33
-    Toyota = 34
-    Volvo = 35
-    Other = 36
-class GearType(Enum):
-    Manual = 1
-    Auto = 2
-
-class FuelType(Enum):
-    Benzien = 1
-    Benzien_91 = 2
-    Benzien_95 = 3
-    Benzien_E20 = 4
-    Benzien_E85 = 5
-    CNG = 6
-    Diesel = 7
-    Diesel_B10 = 8
-    Diesel_B20 = 9
-    Diesel_B5 = 10
-    Diesel_B7 = 11
-    Hybrid = 12
-    LPG = 13
-    NGV = 14
-    EV = 15
-    Plugin_Hybird = 16
-
-class GPSType(Enum):
-    CarTrack = 1
-    Eyefleet = 2
-    NoneGPS = 3
-    Others = 4
-    Otoplug = 5
-
-
-class Gender(Enum):
-    Male = 1
-    Female = 2
-    Others = 3
-
-class Status(Enum):
-    Canceled = 1
-    Pending = 2
-    Success = 3
