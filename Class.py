@@ -128,11 +128,10 @@ class Dealer(User):
 
 
     def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        new_car = Car(**info_dict)
-        self.__car_list.append(new_car)
+        self.__car_list.append(Car(**info_dict))
 
-    def add_to_carcatalog(self):
-        pass
+    def add_to_carcatalog(self,car_catalog,car):#นำ car_list มาเก็บไว้ใน car_catalog
+        car_catalog.add_to_carlist(car) 
 
     def modify_car(self):
         pass
@@ -215,7 +214,7 @@ class CarCatalog:
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -232,8 +231,10 @@ class Car:
         self.__location = location
         self.__type = type
         self.__car_ID = car_ID
+        self.__dealer_ID = dealer_ID
         self.__carstatus = []
         self.__review = []
+        
 
     def get_brand(self):
         return self.__brand
