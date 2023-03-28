@@ -63,6 +63,7 @@ class Dealer(User):
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
         self.__car_list = []
+        
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -77,8 +78,9 @@ class Dealer(User):
         return self.__car_list
 
 
-    def create_car(self):
-        pass
+    def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+        new_car = Car(**info_dict)
+        self.__car_list.append(new_car)
 
     def add_to_carcatalog(self):
         pass

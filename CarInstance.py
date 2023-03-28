@@ -199,6 +199,7 @@ car_info_dict = {
         "type" : "SUV",
         "car_ID" : "11"
     },
+    
     "Car12" : {
         "brand" : C.EClass.CarBrand.Nissan,
         "release_year" : 2009,
