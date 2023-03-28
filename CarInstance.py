@@ -198,7 +198,6 @@ car_info_dict = {
         "location" : C.ThailandProvince.Bangkok,
         "type" : "SUV",
         "car_ID" : "11"
-=======
     },
     "Car12" : {
         "brand" : C.CarBrand.Nissan,

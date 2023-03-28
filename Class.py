@@ -1,5 +1,6 @@
 from enum import Enum 
 from datetime import datetime
+
 class Account:
 
     def __init__(self):
@@ -62,7 +63,11 @@ class Dealer(User):
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
-        self.__car_list = []
+        car1 = Car("Nissan", 2005, 4, 4, GearType.Auto, FuelType.Benzien, 5049, GPSType.NoneGPS, "Black", "Automatic_seat", "", "", 3000, ThailandProvince.Bangkok, "City", "1")
+        car2 = Car("Honda",  2010, 4, 4, GearType.Auto, FuelType.Benzien, 1234, GPSType.NoneGPS, "Black", "Automatic_seat", "", "", 3000, ThailandProvince.Bangkok, "City", "2")
+        car3 = Car("BMW",    2009, 4, 4, GearType.Auto, FuelType.Benzien, 5555, GPSType.NoneGPS, "Black", "Automatic_seat", "", "", 3000, ThailandProvince.Bangkok, "City", "3")
+        car4 = Car("Toyota", 2020, 4, 4, GearType.Auto, FuelType.Benzien, 6666, GPSType.NoneGPS, "Black", "Automatic_seat", "", "", 3000, ThailandProvince.Bangkok, "City", "4")
+        self.__car_list = [car1, car2, car3, car4]
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -76,7 +81,6 @@ class Dealer(User):
     def get_car_list(self):
         return self.__car_list
 
-
     def create_car(self):
         pass
 
@@ -86,12 +90,15 @@ class Dealer(User):
     def modify_car(self):
         pass
 
-    def remove_car(self): #remove Car in Carcatalog
-        pass
+#    def remove_car(self, car_ID, car_catalog): #remove Car in Carcatalog
+#        pass
 
-    def deleted_car(self): #remove Car in self.car_list
-        pass
-
+    def remove_car(self, car_ID): #remove Car in self.car_list
+        for car in self.get_car_list():
+            if car_ID == car.get_car_ID():
+                self.__car_list.remove(car)
+                
+        
 
 class Renter(User):
 
@@ -175,7 +182,6 @@ class CarCatalog:
     def get_car_list(self):
         return self.__car_list
 
-
     def add_to_carlist(self,car):
         self.__car_list.append(car)
 
@@ -185,6 +191,11 @@ class CarCatalog:
             if(car.check_status(start_date,end_date)):
                 return_car_list.append(car)
         return return_car_list
+
+    def remove_car(self, car_ID):
+        for car in self.get_car_list():
+            if car_ID == car.get_car_ID():
+                self.__car_list.remove(car)
 
     def find_car(self):
         pass
