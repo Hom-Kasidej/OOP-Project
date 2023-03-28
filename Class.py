@@ -15,7 +15,7 @@ class Account:
         pass
 
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -23,6 +23,7 @@ class User:
         self._info = info
         self._username = username
         self._password = password
+        self._ID = ID
 
     def get_name(self):
         return self._name
@@ -57,8 +58,8 @@ class User:
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, accept_rate = 0, respond_rate = 0, respond_time = 0):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password)
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
@@ -97,8 +98,8 @@ class Dealer(User):
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password) 
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID) 
         self.__success_list = []
         self.__canceled_list = []
         self.__incomplete_list = []
@@ -134,69 +135,33 @@ class Renter(User):
         pass
 
 
-class CarType:
-
-    def __init__(self):
-        self.__car_catalogs = []
-
-    def get_car_catalogs(self):
-        return self.__car_catalogs
-
-    def add_to_car_catalog(self,car_catalog):
-        self.__car_catalogs.append(car_catalog)
-    
-    def search_car(self,location,start_date,end_date):
-        return_car_list = []
-        for car_catalog in self.__car_catalogs:
-            for car in car_catalog.get_car_list():
-                if(location == car.get_location() and car.check_status(start_date,end_date)):
-                    return_car_list.append(car)
-        return return_car_list
-                
-    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
-        return_car_list = []
-        for car_catalog in self.__car_catalogs:
-            if(car_catalog.get_name() != cartype):
-                continue
-            else:
-                for car in car_catalog.get_car_list():
-                    if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
-                        return_car_list.append(car)
-        return return_car_list
-
 class CarCatalog:
 
-    def __init__(self, name, type_info, type_image):
-        self.__name = name
-        self.__type_info = type_info
-        self.__type_image = type_image
+    def __init__(self):
         self.__car_list = []
-
-    def get_name(self):
-        return self.__name
-
-    def get_type_info(self):
-        return self.__type_info
-
-    def get_type_image(self):
-        return self.__type_image
 
     def get_car_list(self):
         return self.__car_list
 
-
-    def add_to_carlist(self,car):
-        self.__car_list.append(car)
-
-    def collect_car(self,start_date,end_date):
+    def add_to_car_list(self,car_catalog):
+        self.__car_list.append(car_catalog)
+    
+    def search_car(self,location,start_date,end_date):
         return_car_list = []
         for car in self.__car_list:
-            if(car.check_status(start_date,end_date)):
+            if(location == car.get_location() and car.check_status(start_date,end_date)):
                 return_car_list.append(car)
         return return_car_list
-
-    def find_car(self):
-        pass
+                
+    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+        return_car_list = []
+        for car in self.__car_list:
+            if(car.get_type() != cartype):
+                continue
+            else:
+               if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
+                   return_car_list.append(car)
+        return return_car_list
 
 class Car:
 
