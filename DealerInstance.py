@@ -4,7 +4,7 @@ dict1 = {
     'Dealer1' : {
         'name' : 'Johnny Peepo',
         'profile_image': 'None',
-        'gender' : C.Gender.Male,
+        'gender' : C.EClass.Gender.Male,
         'birth_date' : '01/01/2001',
         'info' : 'i love cars',
         'username' : 'johnnysoodlo',
@@ -14,7 +14,7 @@ dict1 = {
     'Dealer2' : {
         'name' : 'Somchai Hi',
         'profile_image': 'None',
-        'gender' : C.Gender.Male,
+        'gender' : C.EClass.Gender.Male,
         'birth_date' : '11/12/1974',
         'info' : 'Hi',
         'username' : 'somchai911',
@@ -24,7 +24,7 @@ dict1 = {
     'Dealer3' : {
         'name' : 'Naruto Sasuke',
         'profile_image': 'None',
-        'gender' : C.Gender.Male,
+        'gender' : C.EClass.Gender.Male,
         'birth_date' : '11/12/1950',
         'info' : 'Hi hello',
         'username' : '1qgqgqwg',
@@ -34,7 +34,7 @@ dict1 = {
     'Dealer4' : {
         'name' : 'Somsri Haha',
         'profile_image': 'None',
-        'gender' : C.Gender.Female,
+        'gender' : C.EClass.Gender.Female,
         'birth_date' : '20/12/1999',
         'info' : 'Hi wassup',
         'username' : 'waegweg134',
@@ -43,7 +43,7 @@ dict1 = {
     }
 }
 
-dealer_list = []
+dealer_instance_list = []
 
 for dealer in dict1:
-    dealer_list.append(C.Dealer(**dict1[dealer]))
+    dealer_instance_list.append(C.Dealer(**dict1[dealer]))

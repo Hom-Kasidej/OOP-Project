@@ -1,5 +1,5 @@
-from enum import Enum 
-from datetime import datetime
+import EnumClass as EClass
+import datetime
 class Account:
 
     def __init__(self):
@@ -11,11 +11,15 @@ class Account:
     def get_accounts(self):
         return self.__accounts
 
-    def check_account(self):
-        pass
-
+    def check_account(self,username,password): #check if input username,password are match with created acc 
+        for user in self.__accounts:
+            if username == user.get_username():
+                if password == user.get_password():
+                    return True , user # return as tuple of logic and user instance
+        return False , None 
+    
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -23,6 +27,7 @@ class User:
         self._info = info
         self._username = username
         self._password = password
+        self._ID = ID
 
     def get_name(self):
         return self._name
@@ -53,12 +58,56 @@ class User:
 
     def cancel_rent(self):
         pass
+    
+    def login(self, account_pool):
+        while True:
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            
+            logic , returned_user = account_pool.check_account(input_username,input_password)
+            if logic:
+                print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
+                return returned_user
+            print('Login failed')
+    def register(self,account_pool):
+        def check_empty_string(lst):
+            booleans = []
+            for str in lst:
+                booleans.append(str != '')
+            return all(booleans)
+        while True:
+            input_fname = input('Enter your first name: ') # input first name
+            input_lname = input('Enter your last name: ')# input last name
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            input_confirm_pass = input('Confirm password: ')
+            strs = []
+            strs.append(input_fname)
+            strs.append(input_lname)
+            strs.append(input_username)
+            strs.append(input_password)
+            strs.append(input_confirm_pass)
+            choose = input('as Renter or Dealer? : ') #user choose to be a renter or a dealer
+
+            if check_empty_string(strs):
+                if input_password == input_confirm_pass:
+                    if choose == 'Renter':
+                        new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    elif choose == 'Dealer':
+                        new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    account_pool.add_to_account(new_user)
+                    print('Register success')
+                    break
+                print('Password must match')
+            else:
+                print('PLease fill all requirements')
+            
 
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, accept_rate = 0, respond_rate = 0, respond_time = 0):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password)
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
@@ -90,14 +139,16 @@ class Dealer(User):
     def remove_car(self): #remove Car in Carcatalog
         pass
 
-    def deleted_car(self): #remove Car in self.car_list
+    def deleted_car(self): #remove Car in self.__car_list
         pass
 
+    def add_to_car_list(self,car): #add Car in self.__car_list
+        pass
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password) 
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID) 
         self.__success_list = []
         self.__canceled_list = []
         self.__incomplete_list = []
@@ -133,62 +184,33 @@ class Renter(User):
         pass
 
 
-class CarType:
-
-    def __init__(self):
-        self.__car_catalogs = []
-
-    def get_car_catalogs(self):
-        return self.__car_catalogs
-
-    def add_to_car_catalog(self,car_catalog):
-        self.__car_catalogs.append(car_catalog)
-    
-    def search_car(self,location,start_date,end_date):
-        return_car_list = []
-        for car_catalog in self.__car_catalogs:
-            for car in car_catalog.get_car_list():
-                if(location == car.get_location() and car.check_status(start_date,end_date)):
-                    return_car_list.append(car)
-        return return_car_list
-                
-    def search_cartype(self):
-        pass
-    
-
 class CarCatalog:
 
-    def __init__(self, name, type_info, type_image):
-        self.__name = name
-        self.__type_info = type_info
-        self.__type_image = type_image
+    def __init__(self):
         self.__car_list = []
-
-    def get_name(self):
-        return self.__name
-
-    def get_type_info(self):
-        return self.__type_info
-
-    def get_type_image(self):
-        return self.__type_image
 
     def get_car_list(self):
         return self.__car_list
 
-
-    def add_to_carlist(self,car):
-        self.__car_list.append(car)
-
-    def collect_car(self,start_date,end_date):
+    def add_to_car_list(self,car_catalog):
+        self.__car_list.append(car_catalog)
+    
+    def search_car(self,location,start_date,end_date):
         return_car_list = []
         for car in self.__car_list:
-            if(car.check_status(start_date,end_date)):
+            if(location == car.get_location() and car.check_status(start_date,end_date)):
                 return_car_list.append(car)
         return return_car_list
-
-    def find_car(self):
-        pass
+                
+    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+        return_car_list = []
+        for car in self.__car_list:
+            if(car.get_type() != cartype):
+                continue
+            else:
+               if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
+                   return_car_list.append(car)
+        return return_car_list
 
 class Car:
 
@@ -273,10 +295,10 @@ class Car:
             for rent in carstatus.get_rent_list():
                 check_st = rent.get_check_in_date()
                 check_ed = rent.get_check_out_date()
-                date_st = datetime.strptime(check_st, '%d/%m/%Y').date()
-                date_ed = datetime.strptime(check_ed, '%d/%m/%Y').date()
-                date_check_st = datetime.strptime(start_date, '%d/%m/%Y').date()
-                date_check_ed = datetime.strptime(end_date, '%d/%m/%Y').date()
+                date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
+                date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+                date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+                date_check_ed = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
                 if((date_check_st > date_st and date_check_st < date_ed) or (date_check_ed > date_st and date_check_ed < date_ed)):
                     return False
                 elif(date_check_st <= date_st and date_check_ed >= date_ed):
@@ -450,7 +472,8 @@ class CreditCardPayment(Payment):
         self.__card_name = card_name
         self.__card_number = card_number
         self.__card_CVC = card_CVC
-        self.__card_exp = card_exp
+        self.__card_exp = card_exp 
+        
 
     def get_creditcard_type(self):
         return self.__creditcard_type
@@ -466,159 +489,3 @@ class CreditCardPayment(Payment):
 
     def get_card_exp(self):
         return self.__card_exp
-
-
-class CarBrand(Enum):
-    Aston_martin = 1
-    Audi = 2
-    BMW = 3
-    BYD = 4
-    Bentlay = 5
-    Chevrolet = 6
-    Citroen = 7
-    FOMM = 8
-    Fiat = 9
-    Ford = 10
-    GWM = 11
-    Honda = 12
-    Hyundai = 13
-    Isuzu = 14
-    Jaguar = 15
-    Jeep = 16
-    Kia = 17
-    LDV = 18
-    Lamborgini = 19
-    Land_Rover = 20
-    Lexus = 21
-    MG = 22
-    Maserati = 23
-    Mazda = 24
-    Mercedes_Benz = 25
-    Mini = 26
-    Mitsubishi = 27
-    Nissan = 28
-    Porsche = 29
-    Rolls_Royce = 30
-    Subaru = 31
-    Suzuki = 32
-    Tesla = 33
-    Toyota = 34
-    Volvo = 35
-    Other = 36
-class GearType(Enum):
-    Manual = 1
-    Auto = 2
-
-class FuelType(Enum):
-    Benzien = 1
-    Benzien_91 = 2
-    Benzien_95 = 3
-    Benzien_E20 = 4
-    Benzien_E85 = 5
-    CNG = 6
-    Diesel = 7
-    Diesel_B10 = 8
-    Diesel_B20 = 9
-    Diesel_B5 = 10
-    Diesel_B7 = 11
-    Hybrid = 12
-    LPG = 13
-    NGV = 14
-    EV = 15
-    Plugin_Hybird = 16
-
-class GPSType(Enum):
-    CarTrack = 1
-    Eyefleet = 2
-    NoneGPS = 3
-    Others = 4
-    Otoplug = 5
-
-
-class Gender(Enum):
-    Male = 1
-    Female = 2
-    Others = 3
-
-class Status(Enum):
-    Canceled = 1
-    Pending = 2
-    Success = 3
-class ThailandProvince(Enum):
-    Amnat_Charoen = "Amnat Charoen"
-    Ang_Thong = "Ang Thong"
-    Bangkok = "Bangkok"
-    Bueng_Kan = "Bueng Kan"
-    Buri_Ram = "Buri Ram"
-    Chachoengsao = "Chachoengsao"
-    Chai_Nat = "Chai Nat"
-    Chaiyaphum = "Chaiyaphum"
-    Chanthaburi = "Chanthaburi"
-    Chiang_Mai = "Chiang Mai"
-    Chiang_Rai = "Chiang Rai"
-    Chon_Buri = "Chon Buri"
-    Chumphon = "Chumphon"
-    Kalasin = "Kalasin"
-    Kamphaeng_Phet = "Kamphaeng Phet"
-    Kanchanaburi = "Kanchanaburi"
-    Khon_Kaen = "Khon Kaen"
-    Krabi = "Krabi"
-    Lampang = "Lampang"
-    Lamphun = "Lamphun"
-    Loei = "Loei"
-    Lopburi = "Lopburi"
-    Mae_Hong_Son = "Mae Hong Son"
-    Maha_Sarakham = "Maha Sarakham"
-    Mukdahan = "Mukdahan"
-    Nakhon_Nayok = "Nakhon Nayok"
-    Nakhon_Pathom = "Nakhon Pathom"
-    Nakhon_Phanom = "Nakhon Phanom"
-    Nakhon_Ratchasima = "Nakhon Ratchasima"
-    Nakhon_Sawan = "Nakhon Sawan"
-    Nakhon_Si_Thammarat = "Nakhon Si Thammarat"
-    Nan = "Nan"
-    Narathiwat = "Narathiwat"
-    Nong_Bua_Lam_Phu = "Nong Bua Lam Phu"
-    Nong_Khai = "Nong Khai"
-    Nonthaburi = "Nonthaburi"
-    Pathum_Thani = "Pathum Thani"
-    Pattani = "Pattani"
-    Phang_Nga = "Phang Nga"
-    Phatthalung = "Phatthalung"
-    Phayao = "Phayao"
-    Phetchabun = "Phetchabun"
-    Phetchaburi = "Phetchaburi"
-    Phichit = "Phichit"
-    Phitsanulok = "Phitsanulok"
-    Phra_Nakhon_Si_Ayutthaya = "Phra Nakhon Si Ayutthaya"
-    Phrae = "Phrae"
-    Phuket = "Phuket"
-    Prachin_Buri = "Prachin Buri"
-    Prachuap_Khiri_Khan = "Prachuap Khiri Khan"
-    Ranong = "Ranong"
-    Ratchaburi = "Ratchaburi"
-    Rayong = "Rayong"
-    Roi_Et = "Roi Et"
-    Sa_Kaeo = "Sa Kaeo"
-    Sakon_Nakhon = "Sakon Nakhon"
-    Samut_Prakan = "Samut Prakan"
-    Samut_Sakhon = "Samut Sakhon"
-    Samut_Songkhram = "Samut Songkhram"
-    Saraburi = "Saraburi"
-    Satun = "Satun"
-    Sing_Buri = "Sing Buri"
-    Sisaket = "Sisaket"
-    Songkhla = "Songkhla"
-    Sukhothai = "Sukhothai"
-    Suphan_Buri = "Suphan Buri"
-    Surat_Thani = "Surat Thani"
-    Surin = "Surin"
-    Tak = "Tak"
-    Trang = "Trang"
-    Trat = "Trat"
-    Ubon_Ratchathani = "Ubon Ratchathani"
-    Udon_Thani = "Udon Thani"
-    Uthai_Thani = "Uthai Thani"
-    Uttaradit = "Uttaradit"
-    Yala = "Yala"
-    Yasothon = "Yasothon"
