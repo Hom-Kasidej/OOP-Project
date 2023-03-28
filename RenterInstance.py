@@ -4,7 +4,7 @@ renter_info_dict = {
     "Renter1" : {
         "name" : "Sompong Payongdej",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "28/02/1987",
         "info" : "Good guy",
         "username" : "Sompong",
@@ -13,7 +13,7 @@ renter_info_dict = {
     "Renter2" : {
         "name" : "Somsej Eatgrass",
         "profile_image" : "",
-        "gender" : C.Gender.Female,
+        "gender" : C.EClass.Gender.Female,
         "birth_date" : "01/01/1999",
         "info" : "Capybaraaa",
         "username" : "GrossGrass",
@@ -22,7 +22,7 @@ renter_info_dict = {
     "Renter" : {
         "name" : "Somjett DashForward",
         "profile_image" : "",
-        "gender" : C.Gender.Female,
+        "gender" : C.EClass.Gender.Female,
         "birth_date" : "09/02/2000",
         "info" : "Get out of my way!",
         "username" : "Jett",
@@ -31,7 +31,7 @@ renter_info_dict = {
      "Renter4" : {
         "name" : "Gekko keeact",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "21/07/2002",
         "info" : "Let's go my buddy",
         "username" : "Anonymous",
@@ -40,7 +40,7 @@ renter_info_dict = {
     "Renter5" : {
         "name" : "MrBeast Latkrabang",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "11/11/1970",
         "info" : "Who want my money!!",
         "username" : "Beast",
@@ -49,7 +49,7 @@ renter_info_dict = {
     "Renter6" : {
         "name" : "RestWith OOP",
         "profile_image" : "",
-        "gender" : C.Gender.Female,
+        "gender" : C.EClass.Gender.Female,
         "birth_date" : "19/03/2003",
         "info" : "OOP Project is waiting for you",
         "username" : "OOPInwZa",
@@ -58,7 +58,7 @@ renter_info_dict = {
     "Renter7" : {
         "name" : "Somying butchai",
         "profile_image" : "",
-        "gender" : C.Gender.Female,
+        "gender" : C.EClass.Gender.Female,
         "birth_date" : "20/09/1997",
         "info" : "I want cheap price",
         "username" : "Somying",
@@ -67,7 +67,7 @@ renter_info_dict = {
     "Renter8" : {
         "name" : "Somrew Lookmo",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "05/05/1955",
         "info" : "Parents give me money :)",
         "username" : "Want bullet?",
@@ -76,7 +76,7 @@ renter_info_dict = {
     "Renter9" : {
         "name" : "Respect Thailand",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "20/02/1969",
         "info" : "Long Live King",
         "username" : "LoveKing",
@@ -85,7 +85,7 @@ renter_info_dict = {
      "Renter10" : {
         "name" : "Frog obob",
         "profile_image" : "",
-        "gender" : C.Gender.Male,
+        "gender" : C.EClass.Gender.Male,
         "birth_date" : "27/12/1975",
         "info" : "Born in R9",
         "username" : "King9",
