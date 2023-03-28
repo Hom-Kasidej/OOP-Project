@@ -39,7 +39,7 @@ dict1 = {
     }
 }
 
-dealer_list = []
+dealer_instance_list = []
 
 for dealer in dict1:
-    dealer_list.append(C.Dealer(**dict1[dealer]))
+    dealer_instance_list.append(C.Dealer(**dict1[dealer]))

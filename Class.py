@@ -11,11 +11,15 @@ class Account:
     def get_accounts(self):
         return self.__accounts
 
-    def check_account(self):
-        pass
-
+    def check_account(self,username,password): #check if input username,password are match with created acc 
+        for user in self.__accounts:
+            if username == user.get_username():
+                if password == user.get_password():
+                    return True , user # return as tuple of logic and user instance
+        return False , None 
+    
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -53,11 +57,55 @@ class User:
 
     def cancel_rent(self):
         pass
+    
+    def login(self, account_pool):
+        while True:
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            
+            logic , returned_user = account_pool.check_account(input_username,input_password)
+            if logic:
+                print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
+                return returned_user
+            print('Login failed')
+    def register(self,account_pool):
+        def check_empty_string(lst):
+            booleans = []
+            for str in lst:
+                booleans.append(str != '')
+            return all(booleans)
+        while True:
+            input_fname = input('Enter your first name: ') # input first name
+            input_lname = input('Enter your last name: ')# input last name
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            input_confirm_pass = input('Confirm password: ')
+            strs = []
+            strs.append(input_fname)
+            strs.append(input_lname)
+            strs.append(input_username)
+            strs.append(input_password)
+            strs.append(input_confirm_pass)
+            choose = input('as Renter or Dealer? : ') #user choose to be a renter or a dealer
+
+            if check_empty_string(strs):
+                if input_password == input_confirm_pass:
+                    if choose == 'Renter':
+                        new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    elif choose == 'Dealer':
+                        new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    account_pool.add_to_account(new_user)
+                    print('Register success')
+                    break
+                print('Password must match')
+            else:
+                print('PLease fill all requirements')
+            
 
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, accept_rate = 0, respond_rate = 0, respond_time = 0):
+    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, accept_rate = 0, respond_rate = 0, respond_time = 0):
         super().__init__(name, profile_image, gender, birth_date, info, username, password)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
@@ -95,7 +143,7 @@ class Dealer(User):
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None):
         super().__init__(name, profile_image, gender, birth_date, info, username, password) 
         self.__success_list = []
         self.__canceled_list = []
@@ -447,7 +495,8 @@ class CreditCardPayment(Payment):
         self.__card_name = card_name
         self.__card_number = card_number
         self.__card_CVC = card_CVC
-        self.__card_exp = card_exp
+        self.__card_exp = card_exp 
+        
 
     def get_creditcard_type(self):
         return self.__creditcard_type
@@ -523,7 +572,7 @@ class FuelType(Enum):
     NGV = 14
     EV = 15
     Plugin_Hybird = 16
-
+    
 class GPSType(Enum):
     CarTrack = 1
     Eyefleet = 2
@@ -541,6 +590,7 @@ class Status(Enum):
     Canceled = 1
     Pending = 2
     Success = 3
+
 class ThailandProvince(Enum):
     Amnat_Charoen = "Amnat Charoen"
     Ang_Thong = "Ang Thong"
