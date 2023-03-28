@@ -192,7 +192,7 @@ class CarCatalog:
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -209,8 +209,10 @@ class Car:
         self.__location = location
         self.__type = type
         self.__car_ID = car_ID
+        self.__dealer_ID = dealer_ID
         self.__carstatus = []
         self.__review = []
+        
 
     def get_brand(self):
         return self.__brand
