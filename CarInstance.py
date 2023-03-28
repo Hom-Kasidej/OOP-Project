@@ -62,7 +62,7 @@ car_info_dict = {
         "doors" : 4,
         "gear_type" : C.EClass.GearType.Auto,
         "fuel_type" : C.EClass.FuelType.EV,
-        "distance" : 1500,
+        "distance" : "1500",
         "gps_type" : C.EClass.GPSType.Otoplug,
         "color" : "blonde",
         "features" : "",
