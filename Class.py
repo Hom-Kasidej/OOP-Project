@@ -15,11 +15,15 @@ class Account:
     def get_accounts(self):
         return self.__accounts
 
-    def check_account(self):
-        pass
-
+    def check_account(self,username,password): #check if input username,password are match with created acc 
+        for user in self.__accounts:
+            if username == user.get_username():
+                if password == user.get_password():
+                    return True , user # return as tuple of logic and user instance
+        return False , None 
+    
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -27,6 +31,7 @@ class User:
         self._info = info
         self._username = username
         self._password = password
+        self._ID = ID
 
     def get_name(self):
         return self._name
@@ -57,12 +62,56 @@ class User:
 
     def cancel_rent(self):
         pass
+    
+    def login(self, account_pool):
+        while True:
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            
+            logic , returned_user = account_pool.check_account(input_username,input_password)
+            if logic:
+                print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
+                return returned_user
+            print('Login failed')
+    def register(self,account_pool):
+        def check_empty_string(lst):
+            booleans = []
+            for str in lst:
+                booleans.append(str != '')
+            return all(booleans)
+        while True:
+            input_fname = input('Enter your first name: ') # input first name
+            input_lname = input('Enter your last name: ')# input last name
+            input_username = input('Enter username: ')
+            input_password = input('Enter password: ')
+            input_confirm_pass = input('Confirm password: ')
+            strs = []
+            strs.append(input_fname)
+            strs.append(input_lname)
+            strs.append(input_username)
+            strs.append(input_password)
+            strs.append(input_confirm_pass)
+            choose = input('as Renter or Dealer? : ') #user choose to be a renter or a dealer
+
+            if check_empty_string(strs):
+                if input_password == input_confirm_pass:
+                    if choose == 'Renter':
+                        new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    elif choose == 'Dealer':
+                        new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+                    account_pool.add_to_account(new_user)
+                    print('Register success')
+                    break
+                print('Password must match')
+            else:
+                print('PLease fill all requirements')
+            
 
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, accept_rate = 0, respond_rate = 0, respond_time = 0):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password)
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
@@ -105,8 +154,8 @@ class Dealer(User):
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password) 
+    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID):
+        super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID) 
         self.__success_list = []
         self.__canceled_list = []
         self.__incomplete_list = []
@@ -142,75 +191,37 @@ class Renter(User):
         pass
 
 
-class CarType:
-
-    def __init__(self):
-        self.__car_catalogs = []
-
-    def get_car_catalogs(self):
-        return self.__car_catalogs
-
-    def add_to_car_catalog(self,car_catalog):
-        self.__car_catalogs.append(car_catalog)
-    
-    def search_car(self,location,start_date,end_date):
-        return_car_list = []
-        for car_catalog in self.__car_catalogs:
-            for car in car_catalog.get_car_list():
-                if(location == car.get_location() and car.check_status(start_date,end_date)):
-                    return_car_list.append(car)
-        return return_car_list
-                
-    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
-        return_car_list = []
-        for car_catalog in self.__car_catalogs:
-            if(car_catalog.get_name() != cartype):
-                continue
-            else:
-                for car in car_catalog.get_car_list():
-                    if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
-                        return_car_list.append(car)
-        return return_car_list
-
 class CarCatalog:
 
-    def __init__(self, name, type_info, type_image):
-        self.__name = name
-        self.__type_info = type_info
-        self.__type_image = type_image
+    def __init__(self):
         self.__car_list = []
-
-    def get_name(self):
-        return self.__name
-
-    def get_type_info(self):
-        return self.__type_info
-
-    def get_type_image(self):
-        return self.__type_image
 
     def get_car_list(self):
         return self.__car_list
 
-    def add_to_carlist(self,car):
-        self.__car_list.append(car)
-
-    def collect_car(self,start_date,end_date):
+    def add_to_car_list(self,car_catalog):
+        self.__car_list.append(car_catalog)
+    
+    def search_car(self,location,start_date,end_date):
         return_car_list = []
         for car in self.__car_list:
-            if(car.check_status(start_date,end_date)):
+            if(location == car.get_location() and car.check_status(start_date,end_date)):
                 return_car_list.append(car)
         return return_car_list
-
-    def remove_car(self, car):
-        self.__car_list.remove(car)
-
-    def find_car(self):
-        pass
+                
+    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+        return_car_list = []
+        for car in self.__car_list:
+            if(car.get_type() != cartype):
+                continue
+            else:
+               if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
+                   return_car_list.append(car)
+        return return_car_list
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -227,8 +238,10 @@ class Car:
         self.__location = location
         self.__type = type
         self.__car_ID = car_ID
+        self.__dealer_ID = dealer_ID
         self.__carstatus = []
         self.__review = []
+        
 
     def get_brand(self):
         return self.__brand
@@ -466,7 +479,8 @@ class CreditCardPayment(Payment):
         self.__card_name = card_name
         self.__card_number = card_number
         self.__card_CVC = card_CVC
-        self.__card_exp = card_exp
+        self.__card_exp = card_exp 
+        
 
     def get_creditcard_type(self):
         return self.__creditcard_type

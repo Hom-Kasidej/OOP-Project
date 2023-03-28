@@ -9,6 +9,7 @@ dict1 = {
         'info' : 'i love cars',
         'username' : 'johnnysoodlo',
         'password' : 'johnny123',
+        'user_ID' : ""
     },
     'Dealer2' : {
         'name' : 'Somchai Hi',
@@ -18,6 +19,7 @@ dict1 = {
         'info' : 'Hi',
         'username' : 'somchai911',
         'password' : 'jgdsg1231',
+        'user_ID' : ""
     },
     'Dealer3' : {
         'name' : 'Naruto Sasuke',
@@ -27,6 +29,7 @@ dict1 = {
         'info' : 'Hi hello',
         'username' : '1qgqgqwg',
         'password' : 'aegki12124',
+        'user_ID' : ""
     },
     'Dealer4' : {
         'name' : 'Somsri Haha',
@@ -36,10 +39,11 @@ dict1 = {
         'info' : 'Hi wassup',
         'username' : 'waegweg134',
         'password' : '12412hlkk',
+        'user_ID' : ""
     }
 }
 
-dealer_list = []
+dealer_instance_list = []
 
 for dealer in dict1:
-    dealer_list.append(C.Dealer(**dict1[dealer]))
+    dealer_instance_list.append(C.Dealer(**dict1[dealer]))
