@@ -23,6 +23,8 @@ class Account:
         return False , None 
     
 class User:
+    id_counter = 1
+
     def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
         self._name = name
         self._profile_image = profile_image
@@ -31,7 +33,9 @@ class User:
         self._info = info
         self._username = username
         self._password = password
-        self._ID = ID
+        self._ID = f"{User.id_counter}"
+
+        User.id_counter += 1
 
     def get_name(self):
         return self._name
@@ -53,6 +57,9 @@ class User:
 
     def get_password(self):
         return self._password
+    
+    def get_ID(self):
+        return self._ID
         
     def view_car(self):
         pass
@@ -109,13 +116,11 @@ class User:
 
 
 class Dealer(User):
-    
     def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
         super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
-        self.__car_list = []
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -125,28 +130,18 @@ class Dealer(User):
 
     def get_respond_time(self):
         return self.__respond_time
+    
 
-    def get_car_list(self):
-        return self.__car_list
-
-    def create_car(self):
-        pass
-
-    def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        self.__car_list.append(Car(**info_dict))
-
-    def add_to_carcatalog(self, catalog, car):
-        catalog.add_to_carlist(car)
+    def post_car(self, info_dict, car_catalog):
+        car_catalog.add_to_car_list(Car(**info_dict))
 
     def modify_car(self):
-        pass
+        pass          
 
-    def delete_car(self, car): #remove Car in self.car_list
-        for car in self.get_car_list():
-            self.__car_list.remove(car)            
-
-    def remove_car(self, carcatalog, car): #remove Car in CarCatalog
-        carcatalog.remove_car(car)
+    def remove_car(self, car_catalog, car): #remove Car in CarCatalog
+        for i in car_catalog.get_car_list():
+            if self._ID == i.get_dealer_ID():
+                car_catalog.remove_car(car)
 
     def add_to_car_list(self,car): #add Car in self.__car_list
         pass
@@ -199,17 +194,21 @@ class CarCatalog:
     def get_car_list(self):
         return self.__car_list
 
-    def add_to_car_list(self,car_catalog):
-        self.__car_list.append(car_catalog)
+    def add_to_car_list(self, car):
+        self.__car_list.append(car)
+
+    def remove_car(self, car):
+        if car in self.__car_list:
+            self.__car_list.remove(car)
     
-    def search_car(self,location,start_date,end_date):
+    def search_car(self, location, start_date, end_date):
         return_car_list = []
         for car in self.__car_list:
             if(location == car.get_location() and car.check_status(start_date,end_date)):
                 return_car_list.append(car)
         return return_car_list
                 
-    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+    def search_cartype(self, cartype, start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
         return_car_list = []
         for car in self.__car_list:
             if(car.get_type() != cartype):
@@ -290,6 +289,9 @@ class Car:
     
     def get_car_ID(self):
         return self.__car_ID
+    
+    def get_dealer_ID(self):
+        return self.__dealer_ID
 
     def get_carstatus(self):
         return self.__carstatus
