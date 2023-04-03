@@ -1,3 +1,6 @@
+from enum import Enum 
+from datetime import datetime
+
 import EnumClass as EClass
 import datetime
 
@@ -148,7 +151,6 @@ class Dealer(User):
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
         self.__car_list = []
-        
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -162,25 +164,28 @@ class Dealer(User):
     def get_car_list(self):
         return self.__car_list
 
+    def create_car(self):
+        pass
 
     def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        new_car = Car(**info_dict)
-        self.__car_list.append(new_car)
+        self.__car_list.append(Car(**info_dict))
 
-    def add_to_carcatalog(self):
-        pass
+    def add_to_carcatalog(self, catalog, car):
+        catalog.add_to_carlist(car)
 
     def modify_car(self):
         pass
 
-    def remove_car(self): #remove Car in Carcatalog
-        pass
+    def delete_car(self, car): #remove Car in self.car_list
+        for car in self.get_car_list():
+            self.__car_list.remove(car)            
 
-    def deleted_car(self): #remove Car in self.__car_list
-        pass
+    def remove_car(self, carcatalog, car): #remove Car in CarCatalog
+        carcatalog.remove_car(car)
 
     def add_to_car_list(self,car): #add Car in self.__car_list
         pass
+
 
 class Renter(User):
 
@@ -222,7 +227,7 @@ class Renter(User):
 
 class Car:
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -240,7 +245,9 @@ class Car:
         self.__type = type
         self.__car_ID = car_ID
         self.__carstatus = CarStatus()
+        self.__dealer_ID = dealer_ID
         self.__review = []
+        
 
     def __str__(self):
         return str(self.__car_ID) + " " + str(self.__brand) + " " + str(self.__type)
