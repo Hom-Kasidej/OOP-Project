@@ -37,9 +37,12 @@ class CarBrand(Enum):
     Toyota = 34
     Volvo = 35
     Other = 36
+
+
 class GearType(Enum):
     Manual = 1
     Auto = 2
+
 
 class FuelType(Enum):
     Benzien = 1
@@ -59,6 +62,7 @@ class FuelType(Enum):
     EV = 15
     Plugin_Hybird = 16
 
+
 class GPSType(Enum):
     CarTrack = 1
     Eyefleet = 2
@@ -72,10 +76,13 @@ class Gender(Enum):
     Female = 2
     Others = 3
 
+
 class Status(Enum):
     Canceled = 1
     Pending = 2
     Success = 3
+
+    
 class ThailandProvince(Enum):
     Amnat_Charoen = "Amnat Charoen"
     Ang_Thong = "Ang Thong"
