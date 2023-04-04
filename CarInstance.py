@@ -17,8 +17,7 @@ car_info_dict = {
         "price" : 3000,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
-        "car_ID" : "1",
-        "dealer_ID" : "2"
+        "dealer_ID" : "1"
     },
     "Car2" : {
         "brand" : C.EClass.CarBrand.Honda,
@@ -36,8 +35,7 @@ car_info_dict = {
         "price" : 3500,
         "location" : C.EClass.ThailandProvince.Chiang_Mai,
         "type" : "City",
-        "car_ID" : "2",
-        "dealer_ID" : "2"
+        "dealer_ID" : "2"   
     },
     "Car3" : {
         "brand" : C.EClass.CarBrand.BMW,
@@ -55,8 +53,7 @@ car_info_dict = {
         "price" : 4000,
         "location" : C.EClass.ThailandProvince.Chiang_Rai,
         "type" : "Convertible",
-        "car_ID" : "3",
-        "dealer_ID" : "2"
+        "dealer_ID" : "1"
     },
     "Car4" : {
         "brand" : C.EClass.CarBrand.Toyota,
@@ -74,7 +71,6 @@ car_info_dict = {
         "price" : 2500,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "SUV",
-        "car_ID" : "4",
         "dealer_ID" : "1"
     },
     "Car5" : {
@@ -93,7 +89,6 @@ car_info_dict = {
         "price" : 3999,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "SUV",
-        "car_ID" : "5",
         "dealer_ID" : "1"
     },
     "Car6" : {
@@ -112,7 +107,6 @@ car_info_dict = {
         "price" : 3000,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "SUV",
-        "car_ID" : "6",
         "dealer_ID" : "1"
     },
     "Car7" : {
@@ -131,7 +125,6 @@ car_info_dict = {
         "price" : 1900,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
-        "car_ID" : "7",
         "dealer_ID" : "1"
     },
     "Car8" : {
@@ -150,7 +143,6 @@ car_info_dict = {
         "price" : 4599,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
-        "car_ID" : "8",
         "dealer_ID" : "1"
     },
     "Car9" : {
@@ -169,7 +161,6 @@ car_info_dict = {
         "price" : 2990,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
-        "car_ID" : "9",
         "dealer_ID" : "1"
     },
     "Car10" : {
@@ -188,8 +179,7 @@ car_info_dict = {
         "price" : 15000,
         "location" : C.EClass.ThailandProvince.Nan,
         "type" : "Convertible",
-        "car_ID" : "10",
-        "dealer_ID" : "2"
+        "dealer_ID" : "1"
     },
     "Car11" : {
         "brand" : C.EClass.CarBrand.Toyota, 
@@ -207,10 +197,8 @@ car_info_dict = {
         "price" : 2600,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "SUV",
-        "car_ID" : "11",
         "dealer_ID" : "1"
     },
-    
     "Car12" : {
         "brand" : C.EClass.CarBrand.Nissan,
         "release_year" : 2009,
@@ -227,7 +215,24 @@ car_info_dict = {
         "price" : 2099,
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
-        "car_ID" : "12",
+        "dealer_ID" : "1"
+    },
+    "Car13" : {
+        "brand" : C.EClass.CarBrand.Audi,
+        "release_year" : 2009,
+        "seats" : 4,
+        "doors" : 4,
+        "gear_type" : C.EClass.GearType.Auto,
+        "fuel_type" : C.EClass.FuelType.Benzien,
+        "distance" : 18005,
+        "gps_type" : C.EClass.GPSType.Eyefleet,
+        "color" : "Purple",
+        "features" : "",
+        "info" : "",
+        "images" : "",
+        "price" : 29000,
+        "location" : C.EClass.ThailandProvince.Nakhon_Ratchasima,
+        "type" : "City",
         "dealer_ID" : "2"
     }
 }

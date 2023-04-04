@@ -61,8 +61,11 @@ class User:
     def get_ID(self):
         return self._ID
         
-    def view_car(self):
-        pass
+    def view_car(self, carcatalog, car):
+        if car in carcatalog.get_car_list():
+            for i in carcatalog.get_car_list():
+                if car.get_car_ID() == i.get_car_ID():
+                    return car
 
     def cancel_payment(self):
         pass
@@ -132,7 +135,7 @@ class Dealer(User):
         return self.__respond_time
     
 
-    def post_car(self, info_dict, car_catalog):
+    def post_car(self, car_catalog, info_dict):
         car_catalog.add_to_car_list(Car(**info_dict))
 
     def modify_car(self):
@@ -142,9 +145,6 @@ class Dealer(User):
         for i in car_catalog.get_car_list():
             if self._ID == i.get_dealer_ID():
                 car_catalog.remove_car(car)
-
-    def add_to_car_list(self,car): #add Car in self.__car_list
-        pass
 
 
 class Renter(User):
@@ -219,8 +219,9 @@ class CarCatalog:
         return return_car_list
 
 class Car:
+    car_id_counter = 1
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -236,11 +237,12 @@ class Car:
         self.__price = price
         self.__location = location
         self.__type = type
-        self.__car_ID = car_ID
+        self.__car_ID = f"{Car.car_id_counter}"
         self.__dealer_ID = dealer_ID
         self.__carstatus = []
         self.__review = []
-        
+
+        Car.car_id_counter += 1
 
     def get_brand(self):
         return self.__brand

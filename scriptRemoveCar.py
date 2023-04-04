@@ -9,8 +9,11 @@ carcatalog = C.CarCatalog()
 dealer1 = dealers.dealer_instance_list[0]
 dealer2 = dealers.dealer_instance_list[1]
 
+i = 0
 for car in cars.Car_instance_list:
-    carcatalog.add_to_car_list(car)
+    if i != 12:
+        carcatalog.add_to_car_list(car)
+    i += 1
 
 ###########################################################
 
@@ -40,4 +43,7 @@ dealer1.remove_car(carcatalog, carcatalog.get_car_list()[4])
 print_all()
 
 dealer2.remove_car(carcatalog, carcatalog.get_car_list()[0])
+print_all()
+
+dealer2.post_car(carcatalog, cars.car_info_dict["Car13"])
 print_all()
