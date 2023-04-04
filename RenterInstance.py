@@ -9,8 +9,7 @@ renter_info_dict = {
         "info" : "Good guy",
         "username" : "Sompong",
         "password" : "ripperisthedog",
-        'user_ID' : ""
-
+        "user_ID" : ""
     },
     "Renter2" : {
         "name" : "Somsej Eatgrass",
@@ -20,7 +19,7 @@ renter_info_dict = {
         "info" : "Capybaraaa",
         "username" : "GrossGrass",
         "password" : "iwantgrass555",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter" : {
         "name" : "Somjett DashForward",
@@ -30,7 +29,7 @@ renter_info_dict = {
         "info" : "Get out of my way!",
         "username" : "Jett",
         "password" : "333Jettiseasytowin",
-        'user_ID' : ""
+        "user_ID" : ""
     },
      "Renter4" : {
         "name" : "Gekko keeact",
@@ -40,7 +39,7 @@ renter_info_dict = {
         "info" : "Let's go my buddy",
         "username" : "Anonymous",
         "password" : "OhhoMyBuddy",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter5" : {
         "name" : "MrBeast Latkrabang",
@@ -50,7 +49,7 @@ renter_info_dict = {
         "info" : "Who want my money!!",
         "username" : "Beast",
         "password" : "1234567890",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter6" : {
         "name" : "RestWith OOP",
@@ -60,7 +59,7 @@ renter_info_dict = {
         "info" : "OOP Project is waiting for you",
         "username" : "OOPInwZa",
         "password" : "KhorGradeANoiKrub55",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter7" : {
         "name" : "Somying butchai",
@@ -70,7 +69,7 @@ renter_info_dict = {
         "info" : "I want cheap price",
         "username" : "Somying",
         "password" : "yinglowcost",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter8" : {
         "name" : "Somrew Lookmo",
@@ -80,7 +79,7 @@ renter_info_dict = {
         "info" : "Parents give me money :)",
         "username" : "Want bullet?",
         "password" : "666satan666",
-        'user_ID' : ""
+        "user_ID" : ""
     },
     "Renter9" : {
         "name" : "Respect Thailand",
@@ -90,7 +89,7 @@ renter_info_dict = {
         "info" : "Long Live King",
         "username" : "LoveKing",
         "password" : "999KingKing",
-        'user_ID' : ""
+        "user_ID" : ""
     },
      "Renter10" : {
         "name" : "Frog obob",
@@ -100,7 +99,7 @@ renter_info_dict = {
         "info" : "Born in R9",
         "username" : "King9",
         "password" : "loveKingThailand",
-        'user_ID' : ""
+        "user_ID" : ""
     }
 }
 
