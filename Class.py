@@ -22,8 +22,9 @@ class Account:
                     return True , user # return as tuple of logic and user instance
         return False , None 
     
+
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
+    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -110,7 +111,7 @@ class User:
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
+    def __init__(self, name, username, password,profile_image = None, gender = None, birth_date = None, info = None, user_ID = None, accept_rate = 0, respond_rate = 0, respond_time = 0):
         super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
@@ -154,7 +155,7 @@ class Dealer(User):
 
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID):
+    def __init__(self, name, username, password, profile_image = None, gender = None, birth_date = None, info = None, user_ID = None):
         super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID) 
         self.__success_list = []
         self.__canceled_list = []
