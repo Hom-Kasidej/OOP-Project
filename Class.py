@@ -127,11 +127,14 @@ class Dealer(User):
         return self.__car_list
 
 
-    def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        self.__car_list.append(Car(**info_dict))
+    #def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+        #self.__car_list.append(Car(**info_dict))
 
-    def add_to_carcatalog(self,car_catalog,car):#นำ car_list มาเก็บไว้ใน car_catalog
-        car_catalog.add_to_carlist(car) 
+    #def add_to_carcatalog(self,car_catalog,car):#นำ car_list มาเก็บไว้ใน car_catalog
+        #car_catalog.add_to_carlist(car)
+
+    def post_car(self,info_dict,car_catalog):
+        car_catalog.add_to_car_list(Car(**info_dict))
 
     def modify_car(self):
         pass
@@ -192,8 +195,8 @@ class CarCatalog:
     def get_car_list(self):
         return self.__car_list
 
-    def add_to_car_list(self,car_catalog):
-        self.__car_list.append(car_catalog)
+    def add_to_car_list(self,car):
+        self.__car_list.append(car)
     
     def search_car(self,location,start_date,end_date):
         return_car_list = []
