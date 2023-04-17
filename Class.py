@@ -19,6 +19,12 @@ class System:
                     return True , user # return as tuple of logic and user instance
         return False , None 
 
+    def check_used_username(self,username): #check if the username is used  
+        for user in self.__account_list:
+            if username == user.get_username():
+                return True
+        return False
+    
     def add_car(self,car):
         self.__car_list.append(car)
 
@@ -46,7 +52,7 @@ class System:
         return self.__car_list
     
 class User:
-    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
+    def __init__(self, name = 'Guest', profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -140,7 +146,9 @@ class User:
             new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
         account_pool.add_account(new_user)
         print('Register success')
-            
+    
+    def get_user_ID(self):
+        return self._ID
 
 
 class Dealer(User):

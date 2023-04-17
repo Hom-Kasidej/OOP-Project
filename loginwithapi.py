@@ -1,11 +1,12 @@
 from fastapi import FastAPI
+from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
 from typing import Optional
 from Class import *
 import RenterInstance as r
 import DealerInstance as d 
 import CarInstance as c
-
+import uvicorn
 class UserModel(BaseModel):
     name: Optional[str] = None
     username: Optional[str] = None
@@ -20,16 +21,18 @@ for acc in user_instance_list:
     system.add_account(acc)
 
 accounts = []
-me = User()
 
+thisuser = [User()]
+guest = User()
 
 @app.get("/")
 async def read_root():
-    return {"Ping":"Pong"}
+    print(thisuser[0].get_name())
+    return {'data': thisuser[0].get_name()}
 @app.post("/register")
 async def register(user:UserModel):
     for detail in user.dict().keys():
-        if user.dict()[detail] == '' or user.dict()[detail] == None:
+        if user.dict()[detail] == '' or user.dict()[detail] == None:    
             return {'message':'Please fill all requirements'}
     if system.check_used_username(user.username):
         return {'message':'This username is used'}
@@ -56,10 +59,18 @@ async def get_accounts():
 
 @app.get("/login")
 async def login(username:str, password:str):
-    logic , returned_user = system.check_account(username,password)
+    logic,returned_user = system.check_account(username,password)
     if logic:
-        return {'data': 'Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name() + str(returned_user.get_user_ID())}
-    return {'data' : 'Login Failed'}
+        thisuser.pop()
+        thisuser.append(returned_user)
+        return {'data': 'Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name()}
+    
+    raise HTTPException(401,detail='Login failed')
+@app.get("/logout")
+async def logout():
+    thisuser.pop()
+    thisuser.append(guest)
+    return {'message': 'Logged out!'}
 
 for car in c.Car_instance_list:
     system.add_car(car)
@@ -72,3 +83,6 @@ async def view_car(car_id:str):
             temp['car_id'] = car.get_car_ID()
             
             return {"data": temp}
+
+if __name__ == "__main__":
+     uvicorn.run("loginwithapi:app", host="127.0.0.1", port=8000, reload=True)
