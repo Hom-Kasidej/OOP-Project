@@ -51,6 +51,11 @@ class System:
     def get_car_list(self):
         return self.__car_list
     
+    def login(self,username,password):
+        logic,returned_user = self.check_account(username,password)
+        if logic:
+            return returned_user
+        return None
 class User:
     def __init__(self, name = 'Guest', profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
         self._name = name
@@ -92,16 +97,7 @@ class User:
     def cancel_rent(self):
         pass
     
-    def login(self, account_pool):
-        while True:
-            input_username = input('Enter username: ')
-            input_password = input('Enter password: ')
-            
-            logic , returned_user = account_pool.check_account(input_username,input_password)
-            if logic:
-                print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
-                return returned_user
-            print('Login failed')
+        
     def register(self,account_pool):
         Bfname = True
         Blname = True
