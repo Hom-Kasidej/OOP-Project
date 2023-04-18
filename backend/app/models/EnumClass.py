@@ -40,47 +40,47 @@ class CarBrand(Enum):
 
 
 class GearType(Enum):
-    Manual = 1
-    Auto = 2
+    Manual = "Manual"
+    Auto = "Auto"
 
 
 class FuelType(Enum):
-    Benzien = 1
-    Benzien_91 = 2
-    Benzien_95 = 3
-    Benzien_E20 = 4
-    Benzien_E85 = 5
-    CNG = 6
-    Diesel = 7
-    Diesel_B10 = 8
-    Diesel_B20 = 9
-    Diesel_B5 = 10
-    Diesel_B7 = 11
-    Hybrid = 12
-    LPG = 13
-    NGV = 14
-    EV = 15
-    Plugin_Hybird = 16
+    Benzien = "Benzien"
+    Benzien_91 = "Benzien 91"
+    Benzien_95 = "Benzien 95"
+    Benzien_E20 = "Benzien E20"
+    Benzien_E85 = "Benzien E85"
+    CNG = "CNG"
+    Diesel = "Diesel"
+    Diesel_B10 = "Diesel B10"
+    Diesel_B20 = "Diesel B20"
+    Diesel_B5 = "Diesel B5"
+    Diesel_B7 = "Diesel B7"
+    Hybrid = "Hybrid"
+    LPG = "LPG"
+    NGV = "NGV"
+    EV = "EV"
+    Plugin_Hybrid = "Plugin Hybrid"
 
 
 class GPSType(Enum):
-    CarTrack = 1
-    Eyefleet = 2
-    NoneGPS = 3
-    Others = 4
-    Otoplug = 5
+    CarTrack = "CarTrack"
+    Eyefleet = "Eyefleet"
+    NoneGPS = "NoneGPS"
+    Others = "Others"
+    Otoplug = "Otoplug"
 
 
 class Gender(Enum):
-    Male = 1
-    Female = 2
-    Others = 3
+    Male = "Male"
+    Female = "Female"
+    Others = "Others"
 
 
 class Status(Enum):
-    Canceled = 1
-    Pending = 2
-    Success = 3
+    Canceled = "Canceled"
+    Pending = "Pending"
+    Success = "Success"
 
     
 class ThailandProvince(Enum):
@@ -172,3 +172,16 @@ class CarType(Enum):
     VAN = 'Van'
     SEDAN = 'Sedan'
     OTHER = 'Other'
+
+class CarColor(Enum):
+    RED = "Red"
+    YELLOW = "Yellow"
+    GREEN = "Green"
+    BLUE = "Blue"
+    GOLD = "Gold"
+    WHITE = "White"
+    BLACK = "Black"
+    GREY = "Grey"
+    SILVER = "Silver"
+    BROWN = "Brown"
+    OTHER = "Other"

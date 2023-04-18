@@ -82,7 +82,6 @@ class System:
                 if target_car.get_car_ID() == target_car_id:
                     self.__car_list.remove(target_car)
                     return True
-            return False
         except :
             return False    
     

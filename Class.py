@@ -19,12 +19,18 @@ class System:
                     return True , user # return as tuple of logic and user instance
         return False , None 
 
-    def add_car(self,car):
+    def add_car(self, car):
         self.__car_list.append(car)
 
     def get_account_list(self):
         return self.__account_list
-
+    
+    def get_car_list(self):
+        return self.__car_list
+    
+    def remove(self, car):
+        self.__car_list.remove(car)
+    
     def search_car(self,location,start_date,end_date):
         return_car_list = []
         for car in self.__car_list:
@@ -42,10 +48,11 @@ class System:
                    return_car_list.append(car)
         return return_car_list
     
-    def get_car_list(self):
-        return self.__car_list
+    
     
 class User:
+    ID = 1
+
     def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
         self._name = name
         self._profile_image = profile_image
@@ -54,7 +61,9 @@ class User:
         self._info = info
         self._username = username
         self._password = password
-        self._ID = ID
+        self._ID = f"{User.ID}"
+
+        User.ID += 1
 
     def get_name(self):
         return self._name
@@ -76,6 +85,9 @@ class User:
 
     def get_password(self):
         return self._password
+    
+    def get_ID(self):
+        return self._ID
         
     def view_car(self):
         pass
@@ -150,7 +162,6 @@ class Dealer(User):
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
-        self.__car_list = []
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -161,27 +172,17 @@ class Dealer(User):
     def get_respond_time(self):
         return self.__respond_time
 
-    def get_car_list(self):
-        return self.__car_list
-
-    def create_car(self):
-        pass
-
-    def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        self.__car_list.append(Car(**info_dict))
-
+    def post_car(self, car_list, info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+        car_list.add_car(Car(**info_dict))
+        
     def add_to_carcatalog(self, catalog, car):
         catalog.add_to_carlist(car)
 
     def modify_car(self):
-        pass
+        pass          
 
-    def delete_car(self, car): #remove Car in self.car_list
-        for car in self.get_car_list():
-            self.__car_list.remove(car)            
-
-    def remove_car(self, carcatalog, car): #remove Car in CarCatalog
-        carcatalog.remove_car(car)
+    def remove_car(self, car_list, car): #remove Car in CarCatalog
+        car_list.remove(car)
 
     def add_to_car_list(self,car): #add Car in self.__car_list
         pass
@@ -226,8 +227,9 @@ class Renter(User):
         pass
 
 class Car:
+    car_ID = 1
 
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -243,10 +245,12 @@ class Car:
         self.__price = price
         self.__location = location
         self.__type = type
-        self.__car_ID = car_ID
+        self.__car_ID = Car.car_ID
         self.__carstatus = CarStatus()
         self.__dealer_ID = dealer_ID
         self.__review = []
+
+        Car.car_ID += 1
         
 
     def __str__(self):
@@ -299,6 +303,9 @@ class Car:
     
     def get_car_ID(self):
         return self.__car_ID
+    
+    def get_dealer_ID(self):
+        return self.__dealer_ID
 
     def get_carstatus(self):
         return self.__carstatus
@@ -504,3 +511,4 @@ class CreditCardPayment(Payment):
 
     def get_card_exp(self):
         return self.__card_exp
+
