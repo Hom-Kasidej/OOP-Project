@@ -2,7 +2,7 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from Class import *
+import Class
 import EnumClass as EClass
 import CarInstance as cars
 import DealerInstance as dealers
@@ -24,30 +24,37 @@ class Car(BaseModel):
     location : EClass.ThailandProvince
     type : str
 
-car_list = cars.car_info_dict
 app = FastAPI()
 
-@app.post("/post-car/{car_name}")
-def post_car(car_name: str, car : Car):
-    if car_name in car_list:
-        return {"I NGO" : "car name already existss"}
+system = Class.System()
+
+for i in range(len(cars.Car_instance_list)):
+    system.add_car(cars.Car_instance_list[i])
+
+@app.post("/post-car/{car_id}")
+def post_car(car_id: int, car : Car):
+    for car in system.get_car_list():
+        if car_id == car.get_car_ID():
+            return {"car ID already exists"}
     
-    car_list[car_name] = car
-    return car_list[car_name]
+    system.add_car(car)
+    return {"Post successfull"}
 
 @app.get("/get-all-car/")
 def get_all_car():
-    return car_list
+    return system.get_car_list()
 
-@app.get("/get-car/{car_name}")
-def get_car(car_name : str):
-    if car_name in car_list:
-        return car_list[car_name]
-    return {"Car name not exists"}
+@app.get("/get-car/{car_id}")
+def get_car(car_id : int):
+    for car in system.get_car_list():
+        if car_id == car.get_car_ID():
+            return car
+    return {"Car ID not exists"}
 
-@app.delete("/delete-car/{car_name}")
-def delete_car(car_name : str):
-    if car_name in car_list:
-        del car_list[car_name]
-        return {"Delete successfull"}
-    return {"Car name not exists"}
+@app.delete("/delete-car/{car_id}")
+def delete_car(car_id : int):
+    for car in system.get_car_list():
+        if car_id == car.get_car_ID():
+            system.remove(car)
+            return {"Delete successfull"}
+    return {"Car ID not exists"}
