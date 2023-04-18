@@ -1,25 +1,63 @@
+from enum import Enum 
+from datetime import datetime
+
 import EnumClass as EClass
 import datetime
-class Account:
 
+class System:
     def __init__(self):
-        self.__accounts = []
+        self.__car_list = []
+        self.__account_list = []
 
-    def add_to_account(self,user):
-        self.__accounts.append(user)
-
-    def get_accounts(self):
-        return self.__accounts
-
-    def check_account(self,username,password): #check if input username,password are match with created acc 
-        for user in self.__accounts:
+    def add_account(self,user):
+        self.__account_list.append(user)
+    
+    def check_account(self,username,password):
+        for user in self.__account_list:
             if username == user.get_username():
                 if password == user.get_password():
                     return True , user # return as tuple of logic and user instance
         return False , None 
+
+    def check_used_username(self,username): #check if the username is used  
+        for user in self.__account_list:
+            if username == user.get_username():
+                return True
+        return False
     
+    def add_car(self,car):
+        self.__car_list.append(car)
+
+    def get_account_list(self):
+        return self.__account_list
+
+    def search_car(self,location,start_date,end_date):
+        return_car_list = []
+        for car in self.__car_list:
+            if(location == car.get_location() and car.check_status(start_date,end_date)):
+                return_car_list.append(car)
+        return return_car_list
+                
+    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
+        return_car_list = []
+        for car in self.__car_list:
+            if(car.get_type() != cartype):
+                continue
+            else:
+               if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
+                   return_car_list.append(car)
+        return return_car_list
+    
+    def get_car_list(self):
+        return self.__car_list
+    
+    def login(self,username,password):
+        logic,returned_user = self.check_account(username,password)
+        if logic:
+            return returned_user
+        return None
 class User:
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, ID):
+    def __init__(self, name = 'Guest', profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None, ID = None):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -59,60 +97,64 @@ class User:
     def cancel_rent(self):
         pass
     
-    def login(self, account_pool):
-        while True:
-            input_username = input('Enter username: ')
-            input_password = input('Enter password: ')
-            
-            logic , returned_user = account_pool.check_account(input_username,input_password)
-            if logic:
-                print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
-                return returned_user
-            print('Login failed')
+        
     def register(self,account_pool):
-        def check_empty_string(lst):
-            booleans = []
-            for str in lst:
-                booleans.append(str != '')
-            return all(booleans)
-        while True:
-            input_fname = input('Enter your first name: ') # input first name
-            input_lname = input('Enter your last name: ')# input last name
-            input_username = input('Enter username: ')
-            input_password = input('Enter password: ')
-            input_confirm_pass = input('Confirm password: ')
-            strs = []
-            strs.append(input_fname)
-            strs.append(input_lname)
-            strs.append(input_username)
-            strs.append(input_password)
-            strs.append(input_confirm_pass)
+        Bfname = True
+        Blname = True
+        Busername = True
+        Bpassword = True
+        Bconfirmpass = True
+        while Bfname or Blname or Busername or Bpassword or Bconfirmpass:
+            if(Bfname):
+                input_fname = input('Enter your first name: ') # input first name
+                if(input_fname != ""):
+                    Bfname = False
+                
+            if(Blname):
+                input_lname = input('Enter your last name: ')# input last name
+                if(input_lname != ""):
+                    Blname = False
+
+            if(Busername):
+                input_username = input('Enter username: ')
+                if(input_username != ""):
+                    Busername = False
+                
+            if(Bpassword):
+                input_password = input('Enter password: ')
+                if(input_password != ""):
+                    Bpassword = False
+
+            if(Bconfirmpass):
+                input_confirm_pass = input('Confirm password: ')
+                if input_password == input_confirm_pass:
+                    if(input_confirm_pass != ""):
+                        Bconfirmpass = False
+
             choose = input('as Renter or Dealer? : ') #user choose to be a renter or a dealer
 
-            if check_empty_string(strs):
-                if input_password == input_confirm_pass:
-                    if choose == 'Renter':
-                        new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
-                    elif choose == 'Dealer':
-                        new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
-                    account_pool.add_to_account(new_user)
-                    print('Register success')
-                    break
-                print('Password must match')
-            else:
+            if(Bfname or Blname or Busername or Bpassword or Bconfirmpass):
                 print('PLease fill all requirements')
-            
+
+        if choose == 'Renter':
+            new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+        elif choose == 'Dealer':
+            new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+        account_pool.add_account(new_user)
+        print('Register success')
+    
+    def get_user_ID(self):
+        return self._ID
 
 
 class Dealer(User):
     
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID, accept_rate = 0, respond_rate = 0, respond_time = 0):
+    def __init__(self, name, username, password,profile_image = None, gender = None, birth_date = None, info = None, user_ID = None, accept_rate = 0, respond_rate = 0, respond_time = 0):
         super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID)
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
         self.__car_list = []
-        
 
     def get_accept_rate(self):
         return self.__accept_rate
@@ -129,32 +171,29 @@ class Dealer(User):
     def create_car(self):
         pass
 
-    #def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
-        #self.__car_list.append(Car(**info_dict))
+    def create_car(self,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+        self.__car_list.append(Car(**info_dict))
 
-    #def add_to_carcatalog(self,car_catalog,car):#นำ car_list มาเก็บไว้ใน car_catalog
-        #car_catalog.add_to_carlist(car)
-
-    def post_car(self,info_dict,car_catalog):
-        car_catalog.add_to_car_list(Car(**info_dict))
     def add_to_carcatalog(self, catalog, car):
         catalog.add_to_carlist(car)
 
     def modify_car(self):
         pass
 
-    def remove_car(self): #remove Car in Carcatalog
-        pass
+    def delete_car(self, car): #remove Car in self.car_list
+        for car in self.get_car_list():
+            self.__car_list.remove(car)            
 
-    def deleted_car(self): #remove Car in self.__car_list
-        pass
+    def remove_car(self, carcatalog, car): #remove Car in CarCatalog
+        carcatalog.remove_car(car)
 
     def add_to_car_list(self,car): #add Car in self.__car_list
         pass
 
+
 class Renter(User):
 
-    def __init__(self, name, profile_image, gender, birth_date, info, username, password, user_ID):
+    def __init__(self, name, username, password, profile_image = None, gender = None, birth_date = None, info = None, user_ID = None):
         super().__init__(name, profile_image, gender, birth_date, info, username, password, user_ID) 
         self.__success_list = []
         self.__canceled_list = []
@@ -190,35 +229,6 @@ class Renter(User):
     def make_rent(self,rlocation,car,check_in_date,check_out_date):
         pass
 
-
-class CarCatalog:
-
-    def __init__(self):
-        self.__car_list = []
-
-    def get_car_list(self):
-        return self.__car_list
-
-    def add_to_car_list(self,car):
-        self.__car_list.append(car)
-    
-    def search_car(self,location,start_date,end_date):
-        return_car_list = []
-        for car in self.__car_list:
-            if(location == car.get_location() and car.check_status(start_date,end_date)):
-                return_car_list.append(car)
-        return return_car_list
-                
-    def search_cartype(self,cartype,start_date = datetime.datetime.now().date(),end_date = datetime.datetime.now().date() + datetime.timedelta(days=3),location : EClass.ThailandProvince = EClass.ThailandProvince.Bangkok):
-        return_car_list = []
-        for car in self.__car_list:
-            if(car.get_type() != cartype):
-                continue
-            else:
-               if(location == car.get_location() and car.check_status(str(start_date),str(end_date))):
-                   return_car_list.append(car)
-        return return_car_list
-
 class Car:
 
     def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
@@ -238,10 +248,13 @@ class Car:
         self.__location = location
         self.__type = type
         self.__car_ID = car_ID
+        self.__carstatus = CarStatus()
         self.__dealer_ID = dealer_ID
-        self.__carstatus = []
         self.__review = []
         
+
+    def __str__(self):
+        return str(self.__car_ID) + " " + str(self.__brand) + " " + str(self.__type)
 
     def get_brand(self):
         return self.__brand
@@ -298,22 +311,21 @@ class Car:
         return self.__review
 
     def check_status(self,start_date,end_date):
-        for carstatus in self.__carstatus:
-            for rent in carstatus.get_rent_list():
-                check_st = rent.get_check_in_date()
-                check_ed = rent.get_check_out_date()
-                date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
-                date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
-                date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
-                date_check_ed = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
-                if((date_check_st > date_st and date_check_st < date_ed) or (date_check_ed > date_st and date_check_ed < date_ed)):
-                    return False
-                elif(date_check_st <= date_st and date_check_ed >= date_ed):
-                    return False
+        for rent in self.__carstatus.get_rent_list():
+            check_st = rent.get_check_in_date()
+            check_ed = rent.get_check_out_date()
+            date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
+            date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+            date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+            date_check_ed = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+            if((date_check_st > date_st and date_check_st < date_ed) or (date_check_ed > date_st and date_check_ed < date_ed)):
+                return False
+            elif(date_check_st <= date_st and date_check_ed >= date_ed):
+                return False
         return True
     
-    def add_carstatus(self,carstatus):
-        self.__carstatus.append(carstatus)
+    def add_carstatus(self,rent):
+        self.__carstatus.update_carstatus(rent=rent)
 
 class Review:
     

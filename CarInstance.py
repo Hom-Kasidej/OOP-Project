@@ -18,7 +18,7 @@ car_info_dict = {
         "location" : C.EClass.ThailandProvince.Bangkok,
         "type" : "City",
         "car_ID" : "1",
-        "dealer_ID" : ""
+        "dealer_ID" : "1"
     },
     "Car2" : {
         "brand" : C.EClass.CarBrand.Honda,
@@ -231,6 +231,17 @@ car_info_dict = {
         "dealer_ID" : ""
     }
 }
+
+#def modify_car_info_dict_value(car_info_dict, car_id, key, new_value):
+    #if car_id not in car_info_dict:
+        #print(f"Car ID '{car_id}' not found in car_info_dict")
+        #return
+    
+    #car_info_dict[car_id][key] = new_value
+
+#modify_car_info_dict_value(car_info_dict, "Car1", "release_year", 2010)
+
+#print(car_info_dict ,"Car1")
 
 Car_instance_list = []
 for i in car_info_dict:

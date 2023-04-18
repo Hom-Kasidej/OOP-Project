@@ -3,15 +3,11 @@ import DealerInstance as Deal
 import CarInstance as Cars
 
 
-car_catalog = C.CarCatalog(name="City",type_info="City",type_image="None")
+car_catalog = C.CarCatalog()
 
-dealer = Deal.dealer_list[0] #สร้าง Dealer โดยใช้ Dealer คนแรก
-#print(Cars.Car_instance_list)
-#print(Cars.car_info_dict['Car1'])
+dealer = Deal.dealer_instance_list[0] #สร้าง Dealer โดยใช้ Dealer คนแรก
 
-dealer.create_car(Cars.car_info_dict['Car1']) #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+dealer.post_car(Cars.car_info_dict['Car1'],car_catalog) #post_car ทำการสร้าง instance รถ แล้วใส่ไว้ใน car_catalog
+dealer.post_car(Cars.car_info_dict['Car2'],car_catalog)
 
-dealer.add_to_carcatalog(car_catalog, dealer.get_car_list()[0])#นำ car_list มาเก็บไว้ใน car_catalog
-
-#print(car_catalog.get_car_list()[0].get_car_ID())
-#print(dealer.get_car_list()[0].get_brand())
+print(car_catalog.get_car_list())
