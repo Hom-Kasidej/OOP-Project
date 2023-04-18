@@ -1,5 +1,6 @@
 from ..models.EnumClass import ThailandProvince
 from ..models.User import Dealer,Renter
+from ..models.Car import Car
 import datetime
 
 class System:
@@ -35,8 +36,9 @@ class System:
                     return True , user # return as tuple of logic and user instance
         return False , None 
 
-    def add_car(self,car):
+    def add_car(self,brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         try :
+            car = Car(brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID)
             self.__car_list.append(car)
             return True
         except :
@@ -136,4 +138,10 @@ class System:
         if logic:
             # print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
             return returned_user
+        return False
+    
+    def get_car(self,target_car_ID):
+        for car in self.__car_list:
+            if car.get_car_ID() == target_car_ID:
+                return car
         return False
