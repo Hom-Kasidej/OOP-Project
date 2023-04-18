@@ -78,7 +78,52 @@ class Car:
 
     def get_review(self):
         return self.__review
+    
+    def set_brand(self, data):
+        self.__brand = data 
 
+    def set_release_year(self, data):
+        self.__release_year = data 
+        
+    def set_seats(self, data):
+        self.__seats = data 
+
+    def set_doors(self, data):
+        self.__doors = data 
+
+    def set_gear_type(self, data):
+        self.__gear_type = data 
+
+    def set_fuel_type(self, data):
+        self.__fuel_type = data 
+
+    def set_distance(self, data):
+        self.__distance = data 
+
+    def set_gps_type(self, data):
+        self.__gps_type = data 
+
+    def set_color(self, data):
+        self.__color = data 
+
+    def set_features(self, data):
+        self.__features = data 
+
+    def set_info(self, data):
+        self.__info = data 
+
+    def set_images(self, data):
+        self.__images = data 
+
+    def set_price(self, data):
+        self.__price = data 
+        
+    def set_location(self, data):
+        self.__location = data  
+
+    def set_type(self, data):
+        self.__type = data  
+        
     def check_status(self,start_date,end_date,rent_list):
         for rent in rent_list:
             check_st = rent.get_check_in_date()

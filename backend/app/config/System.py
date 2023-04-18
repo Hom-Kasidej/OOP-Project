@@ -75,12 +75,13 @@ class System:
         return self.__car_list
     
     def del_car(self,target_car_id):
-        try :
-            for target_car in self.__car_list():
+        try:
+            for target_car in self.__car_list:
+                print(target_car.get_car_ID())
                 if target_car.get_car_ID() == target_car_id:
                     self.__car_list.remove(target_car)
                     return True
-        except :
+        except:
             return False    
     
     def make_rent(self,rlocation,car,check_in_date,check_out_date):
@@ -136,3 +137,24 @@ class System:
             # print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
             return returned_user
         return False
+    
+    def modify_car(self, car, cardict, brand, gear_type, fuel_type, gps_type, color, location, type):
+        try:
+            car.set_brand(brand)
+            car.set_release_year(cardict["release_year"])
+            car.set_seats(cardict["seats"])
+            car.set_doors(cardict["doors"])
+            car.set_gear_type(gear_type)
+            car.set_fuel_type(fuel_type)
+            car.set_distance(cardict["distance"])
+            car.set_gps_type(gps_type)
+            car.set_color(color)
+            car.set_features(cardict["features"])
+            car.set_info(cardict["info"])
+            car.set_images(cardict["images"])
+            car.set_price(cardict["price"])
+            car.set_location(location)
+            car.set_type(type)
+            return True
+        except:
+            return False
