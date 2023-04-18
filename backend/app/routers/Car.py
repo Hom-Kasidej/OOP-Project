@@ -23,4 +23,14 @@ async def post_car(cardict : dict):
 
 @router.delete("/Cars/{target_car_id}",tags=["Car"])
 async def delete_car(target_car_id):
-    return {"Cars" : system.del_car(target_car=target_car_id)}
+    if system.del_car(target_car_id=target_car_id):
+        return {"Message" : f"Car with id : {target_car_id} has been deleted"}
+    else :
+        return {"Message" : f"Car with id : {target_car_id} not found"}
+
+@router.get("/View_car/{target_car_id}",tags=["Car"])
+async def get_car(target_car_id : int):
+    if (system.get_car(target_car_id)) :
+        return {"Car" : system.get_car(target_car_id)}
+    else:
+        return {"Car": f"Car with ID : {target_car_id} no found!"}
