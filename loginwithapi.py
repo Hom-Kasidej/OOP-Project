@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from Class import *
+from utils import *
 import RenterInstance as r
 import DealerInstance as d 
 import CarInstance as c
@@ -15,6 +17,20 @@ class UserModel(BaseModel):
 
 
 app = FastAPI()
+
+origins = ['http://localhost:3000/',
+           "http://localhost.tiangolo.com",
+            "https://localhost.tiangolo.com",
+            "http://localhost",
+            "http://localhost:8080"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ['*'],
+    allow_headers = ['*']
+)
+
 system = System()
 user_instance_list = r.renter_instance_list + d.dealer_instance_list
 for acc in user_instance_list:
@@ -59,13 +75,18 @@ async def get_accounts():
 
 @app.get("/login")
 async def login(username:str, password:str):
-    logic,returned_user = system.check_account(username,password)
-    if logic:
-        thisuser.pop()
-        thisuser.append(returned_user)
-        return {'data': 'Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name()}
+    new_user = system.login(username,password)
+    if new_user == None:
+        raise HTTPException(401,detail='Login failed')
+    thisuser.pop()
+    thisuser.append(new_user)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(data={"sub": new_user.get_username()}, expires_delta=access_token_expires)
     
-    raise HTTPException(401,detail='Login failed')
+    return {"access_token": access_token, "token_type": "bearer"}
+    #return {'data': 'Login success, ' + 'Welcome back! ' + str(type(new_user)) + ' ' + new_user.get_name()}
+    
+    
 @app.get("/logout")
 async def logout():
     thisuser.pop()

@@ -9,7 +9,7 @@ renter_info_dict = {
         "info" : "Good guy",
         "username" : "Sompong",
         "password" : "ripperisthedog",
-        "user_ID" : ""
+        "user_ID" : "1"
     },
     "Renter2" : {
         "name" : "Somsej Eatgrass",
