@@ -1,11 +1,11 @@
 class Payment:
-    
-    def __init__(self, amount, date, payment_status, payment_no,rent):
+    payment_no = 1
+    def __init__(self, amount, date, payment_status):
         self._amount = amount
         self._date = date 
         self._payment_status = payment_status
-        self._payment_no = payment_no
-        self._rent = rent
+        self._payment_no = Payment.payment_no
+        Payment.payment_no += 1
 
     def get_amount(self):
         return self._amount
@@ -19,16 +19,14 @@ class Payment:
     def get_payment_no(self):
         return self._payment_no
 
-    def get_rent(self):
-        return self._rent
 
-    def update_payment_status(self):
-        pass
+    def update_payment_status(self,data):
+        self._payment_status = data
 
 class CashPayment(Payment):
 
-    def __init__(self, cash_type, amount, date, payment_status, payment_no,  rent_Rent, receipt):
-        super().__init__(amount, date, payment_status, payment_no,  rent_Rent, receipt)
+    def __init__(self, cash_type, amount, date, payment_status):
+        super().__init__(amount, date, payment_status)
         self.__cash_type = cash_type
 
     def get_cash_type(self):
@@ -36,8 +34,8 @@ class CashPayment(Payment):
 
 class CreditCardPayment(Payment):
 
-    def __init__(self, Credit_Card_type, card_name, card_number, card_CVC, card_exp, amount, date, payment_status, payment_no,  rent_Rent, receipt):
-        super().__init__(amount, date, payment_status, payment_no,  rent_Rent, receipt)
+    def __init__(self, Credit_Card_type, card_name, card_number, card_CVC, card_exp, amount, date, payment_status):
+        super().__init__(amount, date, payment_status)
         self.__creditcard_type = Credit_Card_type
         self.__card_name = card_name
         self.__card_number = card_number

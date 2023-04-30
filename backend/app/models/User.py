@@ -16,9 +16,6 @@ class User:
 
     def get_name(self):
         return self._name
-    
-    def set_name(self,data):
-        self._name = data
 
     def get_profile_image(self):
         return self._profile_image
@@ -37,7 +34,31 @@ class User:
 
     def get_password(self):
         return self._password
-        
+    
+    def get_id(self):
+        return self._id        
+
+    def set_name(self,data):
+        self._name = data
+
+    def set_profile_image(self,data):
+        self._profile_image = data
+
+    def set_gender(self,data):
+        self._gender = data
+
+    def set_birth_date(self,data):
+        self._birth_date = data
+
+    def set_info(self,data):
+        self._info = data
+
+    def set_username(self,data):
+        self._username = data
+
+    def set_password(self,data):
+        self._password = data
+
     def view_car(self):
         pass
 
@@ -66,7 +87,7 @@ class Dealer(User):
     def get_car_list(self):
         return self.__car_list
 
-    def create_car(self,system,info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
+    def create_car(self,system, info_dict): #สร้าง instance รถขึ้นมาและมาเก็บไว้ใน car_list ของ Dealer
         try : 
             system.add_car(Car(**info_dict))
             return True
@@ -100,23 +121,29 @@ class Renter(User):
     def get_incomplete_list(self):
         return self.__incomplete_list
         
-    def add_to_success_list(self):
-        pass
+    def add_to_success_list(self,rent):
+        self.__success_list.append(rent)
 
-    def add_to_canceled_list(self):
-        pass
+    def add_to_canceled_list(self,rent):
+        self.__canceled_list.append(rent)
 
-    def add_to_incomplete_list(self):
-        pass
+    def add_to_incomplete_list(self,rent):
+        self.__incomplete_list.append(rent)
 
-    def del_in_success_list(self):
-        pass
+    def del_in_success_list(self,target_rent):
+        for rent in self.__success_list:
+            if rent == target_rent:
+                self.__success_list.remove(rent)
     
-    def del_in_canceled_list(self):
-        pass
+    def del_in_canceled_list(self,target_rent):
+        for rent in self.__canceled_list:
+            if rent == target_rent:
+                self.__canceled_list.remove(rent)
     
-    def del_in_incomplete_list(self):
-        pass
+    def del_in_incomplete_list(self,target_rent):
+        for rent in self.__incomplete_list:
+            if rent == target_rent:
+                self.__incomplete_list.remove(rent)
 
 class Admin(User):
     def __init__(self, name=None, profile_image=None, gender=None, birth_date=None, info=None, username=None, password=None, ID=None):

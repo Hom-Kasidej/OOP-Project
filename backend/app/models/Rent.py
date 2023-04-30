@@ -1,14 +1,18 @@
-class Rent:
+from .Receipt import Receipt
+from .Payment import Payment
 
-    def __init__(self, check_in_date, check_out_date, rent_no, rent_status, rent_car, location = None, payment = None, receipt = None):
+class Rent:
+    rent_number = 1
+    def __init__(self, check_in_date, check_out_date, rent_status, rent_car, location = None, payment = None, receipt = None):
         self.__check_in_date = check_in_date
         self.__check_out_date = check_out_date
         self.__location = location
         self.__rent_car = rent_car
-        self.__rent_no = rent_no
+        self.__rent_no = Rent.rent_number
         self.__rent_status = rent_status
-        self.__payment = payment
-        self.__receipt = receipt
+        self.__payment = None
+        self.__receipt = None
+        Rent.rent_number += 1
 
     def get_check_in_date(self):
         return self.__check_in_date
@@ -34,5 +38,16 @@ class Rent:
     def get_receipt(self):
         return self.__receipt
     
-    def update_rent_status(self):
-        pass
+    def update_rent_status(self,data):
+        self.__rent_status = data
+
+    def create_receipt(self,payment):
+        new_receipt = Receipt(payment=payment)
+        self.__receipt = new_receipt
+
+    def update_payment(self,payment):
+        if isinstance(payment,Payment):
+            self.__payment = payment
+            return True
+        else:
+            return False

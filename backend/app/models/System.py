@@ -1,5 +1,8 @@
-from ..models.EnumClass import ThailandProvince
+from ..models.EnumClass import ThailandProvince,Status
 from ..models.User import Dealer,Renter
+from ..models.Car import Car
+from ..models.Rent import Rent
+from ..models.Payment import CashPayment,CreditCardPayment
 import datetime
 
 class System:
@@ -7,6 +10,7 @@ class System:
         self.__car_list = []
         self.__account_list = []
         self.__rent_list = []
+        self.__payment_list = []
 
     def add_rent(self,rent):
         self.__rent_list.append(rent)
@@ -75,18 +79,26 @@ class System:
         return self.__car_list
     
     def del_car(self,target_car_id):
-        try:
+        try :
+            print("Try")
             for target_car in self.__car_list:
-                print(target_car.get_car_ID())
                 if target_car.get_car_ID() == target_car_id:
                     self.__car_list.remove(target_car)
                     return True
-        except:
+        except :
             return False    
     
-    def make_rent(self,rlocation,car,check_in_date,check_out_date):
-        pass
-    
+    def make_rent(self,check_in_date,check_out_date,car,user):
+        # try :
+            if not isinstance(user,Renter):
+                return False
+            new_rent = Rent(check_in_date,check_out_date,Status.Pending,car,car.get_location())
+            self.__rent_list.append(new_rent)
+            user.add_to_incomplete_list(rent=new_rent)
+            return True
+        # except :
+            # return False
+
     def register(self, firstname, lastname, username, password, confirm_password, account_type):
         def check_username(username):
             if len(username) < 8:
@@ -138,23 +150,78 @@ class System:
             return returned_user
         return False
     
-    def modify_car(self, car, cardict, brand, gear_type, fuel_type, gps_type, color, location, type):
-        try:
-            car.set_brand(brand)
-            car.set_release_year(cardict["release_year"])
-            car.set_seats(cardict["seats"])
-            car.set_doors(cardict["doors"])
-            car.set_gear_type(gear_type)
-            car.set_fuel_type(fuel_type)
-            car.set_distance(cardict["distance"])
-            car.set_gps_type(gps_type)
-            car.set_color(color)
-            car.set_features(cardict["features"])
-            car.set_info(cardict["info"])
-            car.set_images(cardict["images"])
-            car.set_price(cardict["price"])
-            car.set_location(location)
-            car.set_type(type)
+    def modify(self,user,userdict,gender):
+        try :
+            user.set_name(userdict["name"])
+            user.set_profile_image(userdict["profile_image"])
+            user.set_gender(gender)
+            user.set_birth_date(userdict["birth_date"])
+            user.set_info(userdict["info"])
+            user.set_username(userdict["username"])
+            user.set_password(userdict["password"])
             return True
-        except:
+        except :
+            return False
+
+    def get_car(self,target_car_ID):
+        for car in self.__car_list:
+            if car.get_car_ID() == target_car_ID:
+                return car
+        return False
+    
+    def get_user(self,target_user_ID):
+        for user in self.__account_list:
+            if user.get_id() == target_user_ID:
+                return user
+        return False
+    
+    def get_rent(self,rent_id):
+        for rent in self.__rent_list:
+            if rent.get_rent_no() == rent_id:
+                return rent
+        return False
+    
+    def add_payment(self,payment):
+        try :
+            self.__payment_list.append(payment)
+            return True
+        except :
+            return False
+    def get_payment(self,payment_id):
+        for payment in self.__payment_list:
+            if payment.get_payment_no() == payment_id:
+                return payment
+        return False
+    
+    def get_payment_list(self):
+        return self.__payment_list
+    
+    def create_CashPayment(self,card_dictinfo,amount,rent):
+        try :
+            new_payment = CashPayment(cash_type=card_dictinfo["cash_type"]
+                                      ,amount=amount
+                                      ,date=card_dictinfo["date"]
+                                      ,payment_status=Status.Pending)
+            self.add_payment(new_payment) 
+            rent.update_payment(new_payment)
+            return True
+        except :
+            return False
+
+    def create_CreditPayment(self,card_dictinfo,amount,rent):
+        try:    
+            if not isinstance(rent,Rent):
+                return False
+            new_payment = CreditCardPayment(Credit_Card_type=card_dictinfo["card_type"]
+                                            ,card_name=card_dictinfo["card_name"]
+                                            ,card_number=card_dictinfo["card_number"]
+                                            ,card_CVC=card_dictinfo["card_CVC"]
+                                            ,card_exp=card_dictinfo["card_exp"]
+                                            ,amount=amount
+                                            ,date=card_dictinfo["date"]
+                                            ,payment_status=Status.Pending)
+            self.add_payment(new_payment) 
+            rent.update_payment(new_payment)
+            return True
+        except :
             return False
