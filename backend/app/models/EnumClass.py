@@ -1,86 +1,86 @@
 from enum import Enum
 
 class CarBrand(Enum):
-    Aston_martin = 1
-    Audi = 2
-    BMW = 3
-    BYD = 4
-    Bentlay = 5
-    Chevrolet = 6
-    Citroen = 7
-    FOMM = 8
-    Fiat = 9
-    Ford = 10
-    GWM = 11
-    Honda = 12
-    Hyundai = 13
-    Isuzu = 14
-    Jaguar = 15
-    Jeep = 16
-    Kia = 17
-    LDV = 18
-    Lamborgini = 19
-    Land_Rover = 20
-    Lexus = 21
-    MG = 22
-    Maserati = 23
-    Mazda = 24
-    Mercedes_Benz = 25
-    Mini = 26
-    Mitsubishi = 27
-    Nissan = 28
-    Porsche = 29
-    Rolls_Royce = 30
-    Subaru = 31
-    Suzuki = 32
-    Tesla = 33
-    Toyota = 34
-    Volvo = 35
-    Other = 36
+    Aston_martin = "Aston_martin"
+    Audi = "Audi"
+    BMW = "BMW"
+    BYD = "BYD"
+    Bentlay = "Bentlay"
+    Chevrolet = "Chevrolet"
+    Citroen = "Citroen"
+    FOMM = "FOMM"
+    Fiat = "Fiat"
+    Ford = "Ford"
+    GWM = "GWM"
+    Honda = "Honda"
+    Hyundai = "Hyundai"
+    Isuzu = "Isuzu"
+    Jaguar = "Jaguar"
+    Jeep = "Jeep"
+    Kia = "Kia"
+    LDV = "LDV"
+    Lamborgini = "Lamborgini"
+    Land_Rover = "Land_Rover"
+    Lexus = "Lexus"
+    MG = "MG"
+    Maserati = "Maserati"
+    Mazda = "Mazda"
+    Mercedes_Benz = "Mercedes_Benz"
+    Mini = "Mini"
+    Mitsubishi = "Mitsubishi"
+    Nissan = "Nissan"
+    Porsche = "Porsche"
+    Rolls_Royce = "Rolls_Royce"
+    Subaru = "Subaru"
+    Suzuki = "Suzuki"
+    Tesla = "Tesla"
+    Toyota = "Toyota"
+    Volvo = "Volvo"
+    Other = "Other"
 
 
 class GearType(Enum):
-    Manual = 1
-    Auto = 2
+    Manual = "Manual"
+    Auto = "Auto"
 
 
 class FuelType(Enum):
-    Benzien = 1
-    Benzien_91 = 2
-    Benzien_95 = 3
-    Benzien_E20 = 4
-    Benzien_E85 = 5
-    CNG = 6
-    Diesel = 7
-    Diesel_B10 = 8
-    Diesel_B20 = 9
-    Diesel_B5 = 10
-    Diesel_B7 = 11
-    Hybrid = 12
-    LPG = 13
-    NGV = 14
-    EV = 15
-    Plugin_Hybird = 16
+    Benzien = "Benzien"
+    Benzien_91 = "Benzien 91"
+    Benzien_95 = "Benzien 95"
+    Benzien_E20 = "Benzien E20"
+    Benzien_E85 = "Benzien E85"
+    CNG = "CNG"
+    Diesel = "Diesel"
+    Diesel_B10 = "Diesel B10"
+    Diesel_B20 = "Diesel B20"
+    Diesel_B5 = "Diesel B5"
+    Diesel_B7 = "Diesel B7"
+    Hybrid = "Hybrid"
+    LPG = "LPG"
+    NGV = "NGV"
+    EV = "EV"
+    Plugin_Hybrid = "Plugin Hybrid"
 
 
 class GPSType(Enum):
-    CarTrack = 1
-    Eyefleet = 2
-    NoneGPS = 3
-    Others = 4
-    Otoplug = 5
+    CarTrack = "CarTrack"
+    Eyefleet = "Eyefleet"
+    NoneGPS = "NoneGPS"
+    Others = "Others"
+    Otoplug = "Otoplug"
 
 
 class Gender(Enum):
-    Male = 1
-    Female = 2
-    Others = 3
+    Male = "Male"
+    Female = "Female"
+    Others = "Others"
 
 
 class Status(Enum):
-    Canceled = 1
-    Pending = 2
-    Success = 3
+    Canceled = "Canceled"
+    Pending = "Pending"
+    Success = "Success"
 
     
 class ThailandProvince(Enum):
@@ -161,3 +161,37 @@ class ThailandProvince(Enum):
     Uttaradit = "Uttaradit"
     Yala = "Yala"
     Yasothon = "Yasothon"
+
+class CarType(Enum):
+    ANTIQUE = 'Antique'
+    CAMPERVAN = 'Campervan'
+    CITY = 'City'
+    CONVERTIBLE = 'Convertible'
+    COUPE = 'Coupe'
+    SUV = 'SUV'
+    VAN = 'Van'
+    SEDAN = 'Sedan'
+    OTHER = 'Other'
+
+class CarColor(Enum):
+    RED = "Red"
+    YELLOW = "Yellow"
+    GREEN = "Green"
+    BLUE = "Blue"
+    GOLD = "Gold"
+    WHITE = "White"
+    BLACK = "Black"
+    GREY = "Grey"
+    SILVER = "Silver"
+    BROWN = "Brown"
+    OTHER = "Other"
+
+class CreditCard(Enum):
+    MasterCard = "MasterCard"
+    Visa = "Visa"
+    JCB = "JCB"
+
+class CashType(Enum):
+    Bank = "Bank"
+    Cash = "Cash"
+    Promptpay = "Promptpay"
