@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
 from typing import Optional
-from Class import *
 import RenterInstance as r
 import DealerInstance as d 
 import CarInstance as c
 import uvicorn
+from backend.app.config.System import *
+from backend.app.config.User import *
 class UserModel(BaseModel):
     name: Optional[str] = None
     username: Optional[str] = None

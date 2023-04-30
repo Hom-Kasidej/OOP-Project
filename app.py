@@ -46,7 +46,7 @@ class ScrollableFrame(Frame):
 class StartPage(Frame):
     api_endpoint = "http://127.0.0.1:8000/"
     logout_endpoint = "http://127.0.0.1:8000/logout"
-
+    search_car_endpoint = "http://127.0.0.1:8000/search_car/{location}"
     def __init__(self,parent,controller):
         Frame.__init__(self,parent)
         self.response = requests.get(self.api_endpoint)
@@ -80,6 +80,7 @@ class StartPage(Frame):
             '''
             for i in range(50):
                 Label(self.main_frame.scrollable_frame, text=f"Sample scrolling label{i}").pack()
+
             '''  
             drivemate_logo = Label(self.main_frame,text = "DRIVEMATE",font = 100,bg ="yellow",fg ="red")
             drivemate_logo.pack()
@@ -87,65 +88,69 @@ class StartPage(Frame):
             self.searchbar_frame = Frame(self.main_frame,bg='cyan')
             self.searchbar_frame.pack(side=TOP,fill=X,expand=YES)
 
-            myLabel2 = Label(self.searchbar_frame,text = "จาก :",font = 50)
-            myLabel2.pack(side=LEFT,expand=YES,fill=X)
-            cbo_day_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,32)), width = 3, state="readonly")
-            cbo_day_pickup.current(0)
-            cbo_day_pickup.pack(side=LEFT,expand=YES,fill=X)
-            cbo_month_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,13)), width = 4,state = "readonly")
-            cbo_month_pickup.current(1)
-            cbo_month_pickup.pack(side=LEFT,expand=YES,fill=X)
-            cbo_year_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(2023,2100)), width = 5)
-            cbo_year_pickup.current(1)
-            cbo_year_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.pickup_day = StringVar()
+            self.pickup_month = StringVar()
+            self.pickup_year = StringVar()
+            self.pickup_hour = StringVar()
+            self.pickup_minute = StringVar()
+            self.return_day = StringVar()
+            self.return_month = StringVar()
+            self.return_year = StringVar()
+            self.return_hour = StringVar()
+            self.return_minute = StringVar()
+            self.myLabel2 = Label(self.searchbar_frame,text = "จาก :",font = 50)
+            self.myLabel2.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_day_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,32)), width = 3, state="readonly",textvariable=pickup_day)
+            self.cbo_day_pickup.current(0)
+            self.cbo_day_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_month_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,13)), width = 4,state = "readonly",textvariable=pickup_month)
+            self.cbo_month_pickup.current(1)
+            self.cbo_month_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_year_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(2023,2100)), width = 5,textvariable=pickup_year)
+            self.cbo_year_pickup.current(1)
+            self.cbo_year_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.myLabel3 = Label(self.searchbar_frame,text = "เวลา :",font = 50)
+            self.myLabel3.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_hour_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,25)),width = 2,state = "readonly",textvariable=pickup_hour)
+            self.cbo_hour_pickup.current(1)
+            self.cbo_hour_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_minute_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(0,61)),width = 2,state = "readonly",textvariable=pickup_minute)
+            self.cbo_minute_pickup.current(1)
+            self.cbo_minute_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.myLabel4 = Label(self.searchbar_frame,text = "จนกระทั่ง :",font = 50)
+            self.myLabel4.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_day_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,32)), width = 3, state="readonly",textvariable=return_day)
+            self.cbo_day_return.current(0)
+            self.cbo_day_return.pack(side=LEFT,expand=YES,fill=X)
 
-            myLabel3 = Label(self.searchbar_frame,text = "เวลา :",font = 50)
-            myLabel3.pack(side=LEFT,expand=YES,fill=X)
-            cbo_hour_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(1,25)),width = 2,state = "readonly")
-            cbo_hour_pickup.current(1)
-            cbo_hour_pickup.pack(side=LEFT,expand=YES,fill=X)
-            cbo_minute_pickup = ttk.Combobox(self.searchbar_frame, values = list(range(0,61)),width = 2,state = "readonly")
-            cbo_minute_pickup.current(1)
-            cbo_minute_pickup.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_month_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,13)), width = 4,state = "readonly",textvariable=return_month)
+            self.cbo_month_return.current(1)
+            self.cbo_month_return.pack(side=LEFT,expand=YES,fill=X)
 
-           
+            self.cbo_year_return = ttk.Combobox(self.searchbar_frame, values = list(range(2023,2100)), width = 5,textvariable=return_year)
+            self.cbo_year_return.current(1)
+            self.cbo_year_return.pack(side=LEFT,expand=YES,fill=X)
+            self.myLabel5 = Label(self.searchbar_frame,text = "เวลา :",font = 50)
+            self.myLabel5.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_hour_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,25)),width = 2,state = "readonly",textvariable=return_hour)
+            self.cbo_hour_return.current(1)
+            self.cbo_hour_return.pack(side=LEFT,expand=YES,fill=X)
 
-            myLabel4 = Label(self.searchbar_frame,text = "จนกระทั่ง :",font = 50)
-            myLabel4.pack(side=LEFT,expand=YES,fill=X)
-            cbo_day_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,32)), width = 3, state="readonly")
-            cbo_day_return.current(0)
-            cbo_day_return.pack(side=LEFT,expand=YES,fill=X)
-    
-            cbo_month_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,13)), width = 4,state = "readonly")
-            cbo_month_return.current(1)
-            cbo_month_return.pack(side=LEFT,expand=YES,fill=X)
-    
-            cbo_year_return = ttk.Combobox(self.searchbar_frame, values = list(range(2023,2100)), width = 5)
-            cbo_year_return.current(1)
-            cbo_year_return.pack(side=LEFT,expand=YES,fill=X)
-            myLabel5 = Label(self.searchbar_frame,text = "เวลา :",font = 50)
-            myLabel5.pack(side=LEFT,expand=YES,fill=X)
-            cbo_hour_return = ttk.Combobox(self.searchbar_frame, values = list(range(1,25)),width = 2,state = "readonly")
-            cbo_hour_return.current(1)
-            cbo_hour_return.pack(side=LEFT,expand=YES,fill=X)
-    
-            cbo_minute_return = ttk.Combobox(self.searchbar_frame, values = list(range(0,61)),width = 2,state = "readonly")
-            cbo_minute_return.current(1)
-            cbo_minute_return.pack(side=LEFT,expand=YES,fill=X)
+            self.cbo_minute_return = ttk.Combobox(self.searchbar_frame, values = list(range(0,61)),width = 2,state = "readonly",textvariable=return_minute)
+            self.cbo_minute_return.current(1)
+            self.cbo_minute_return.pack(side=LEFT,expand=YES,fill=X)
+            self.provinces = {"Amnat Charoen", "Ang Thong", "Bangkok", "Bueng Kan", "Buri Ram", "Chachoengsao", "Chai Nat", "Chaiyaphum", "Chanthaburi", "Chiang Mai", "Chiang Rai", "Chon Buri", "Chumphon", "Kalasin", "Kamphaeng Phet", "Kanchanaburi", "Khon Kaen", "Krabi", "Lampang", "Lamphun", "Loei", "Lopburi", "Mae Hong Son", "Maha Sarakham", "Mukdahan", "Nakhon Nayok", "Nakhon Pathom", "Nakhon Phanom", "Nakhon Ratchasima", "Nakhon Sawan", "Nakhon Si Thammarat", "Nan", "Narathiwat", "Nong Bua Lamphu", "Nong Khai", "Nonthaburi", "Pathum Thani", "Pattani", "Phang Nga", "Phatthalung", "Phayao", "Phetchabun", "Phetchaburi", "Phichit", "Phitsanulok", "Phra Nakhon Si Ayutthaya", "Phrae", "Phuket", "Prachinburi", "Prachuap Khiri Khan", "Ranong", "Ratchaburi", "Rayong", "Roi Et", "Sa Kaeo", "Sakon Nakhon", "Samut Prakan", "Samut Sakhon", "Samut Songkhram", "Saraburi", "Satun", "Sing Buri", "Sisaket", "Songkhla", "Sukhothai", "Suphan Buri", "Surat Thani", "Surin", "Tak", "Trang", "Trat", "Ubon Ratchathani", "Udon Thani", "Uthai Thani", "Uttaradit", "Yala", "Yasothon"}
+            self.tv_string = StringVar()
+            self.selectedOpt = StringVar()
+            self.selectedOpt.set('Bangkok')
 
-            provinces = {"Amnat Charoen", "Ang Thong", "Bangkok", "Bueng Kan", "Buri Ram", "Chachoengsao", "Chai Nat", "Chaiyaphum", "Chanthaburi", "Chiang Mai", "Chiang Rai", "Chon Buri", "Chumphon", "Kalasin", "Kamphaeng Phet", "Kanchanaburi", "Khon Kaen", "Krabi", "Lampang", "Lamphun", "Loei", "Lopburi", "Mae Hong Son", "Maha Sarakham", "Mukdahan", "Nakhon Nayok", "Nakhon Pathom", "Nakhon Phanom", "Nakhon Ratchasima", "Nakhon Sawan", "Nakhon Si Thammarat", "Nan", "Narathiwat", "Nong Bua Lamphu", "Nong Khai", "Nonthaburi", "Pathum Thani", "Pattani", "Phang Nga", "Phatthalung", "Phayao", "Phetchabun", "Phetchaburi", "Phichit", "Phitsanulok", "Phra Nakhon Si Ayutthaya", "Phrae", "Phuket", "Prachinburi", "Prachuap Khiri Khan", "Ranong", "Ratchaburi", "Rayong", "Roi Et", "Sa Kaeo", "Sakon Nakhon", "Samut Prakan", "Samut Sakhon", "Samut Songkhram", "Saraburi", "Satun", "Sing Buri", "Sisaket", "Songkhla", "Sukhothai", "Suphan Buri", "Surat Thani", "Surin", "Tak", "Trang", "Trat", "Ubon Ratchathani", "Udon Thani", "Uthai Thani", "Uttaradit", "Yala", "Yasothon"}
-            tv_string = StringVar()
+            self.om = OptionMenu(self.searchbar_frame, self.selectedOpt, *self.provinces)
+            self.om.config(width = 20)
+            self.om.pack(side=LEFT,expand=YES,fill=X)
 
-            selectedOpt = StringVar()
-            selectedOpt.set('Bangkok')
-    
-            om = OptionMenu(self.searchbar_frame, selectedOpt, *provinces)
-            om.config(width = 20)
-            om.pack(side=LEFT,expand=YES,fill=X)
-    
-            btn = Button(self.searchbar_frame, text ="Search")
-            btn.pack(side=LEFT,expand=YES,fill=X)
-            btn.bind("<Button-1>")
+            self.btn = Button(self.searchbar_frame, text ="Search",command= self.search_click)
+            self.btn.pack(side=LEFT,expand=YES,fill=X)
+            self.btn.bind("<Button-1>")
             
         if self.response.json()['data'] != 'Guest':
             self.login_button.pack_forget()
@@ -158,8 +163,13 @@ class StartPage(Frame):
         self.register_button.pack(side=RIGHT)
         self.logout_button.pack_forget()
         self.label.config(text="This is the starting page. Welcome! " +'Guest')
-
-
+    def search_click(self):
+        payload = {'location': self.selectedOpt.get(),
+                   'start_date' : self.pickup_year.get() +"-"+ self.pickup_month.get() +"-"+ self.pickup_day.get(),
+                   'end_date': self.return_year.get() +"-"+ self.return_month.get() +"-"+ self.return_day.get()}
+        new_response = requests.get(self.search_car_endpoint)
+        if new_response.ok:
+            print(new_response.json()['Cars'])
 class LoginPage(Frame):
     api_endpoint = "http://127.0.0.1:8000/login"
     def __init__(self,parent,controller):
