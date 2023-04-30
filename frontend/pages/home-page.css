@@ -1,0 +1,28 @@
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.by-car-types{
+    display: flex;
+    justify-content: center;
+}
+
+.search-page {
+    background-image: url(../../public/IMG/520242.png);
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+.card-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.1vh;
+}
