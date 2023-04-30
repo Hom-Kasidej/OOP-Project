@@ -1,0 +1,48 @@
+ul {
+  list-style-type: none;
+}
+
+.nav-active {
+  color: red;
+  font-weight: bold;
+}
+
+.nav-bar {
+  border: 1px solid crimson;
+}
+
+.nav-bar-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: pink;
+  box-shadow: 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(3,auto);
+  list-style: none;
+  align-items: center;
+  text-align: center;
+  justify-content: end;
+}
+
+.nav-b:hover{
+  color: crimson;
+}
+
+
+#home-nav,#signin-nav{
+  text-decoration: none;
+  padding: 20px;
+  margin-right: 10px;
+}
+
+#home-nav {
+  color: black;
+  font-weight: bold;
+  font-family: 'Papyrus';
+  font-size: 50px;
+}
