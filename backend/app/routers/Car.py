@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..config.database import system
+from ..models.database import system
 from ..models.EnumClass import ThailandProvince, CarType, CarBrand, GearType, FuelType, GPSType, CarColor
 from ..models.Car import Car
 import datetime
@@ -43,7 +43,7 @@ async def post_car(brand : CarBrand, gear_type : GearType, fuel_type : FuelType,
     return {"Message" : "Post car failed"}
 
 @router.delete("/Cars/{target_car_id}",tags=["Car"])
-async def delete_car(target_car_id):
+async def delete_car(target_car_id : int):
     if system.del_car(target_car_id=target_car_id):
         return {"Message" : f"Car with id : {target_car_id} has been deleted"}
     else :

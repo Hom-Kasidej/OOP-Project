@@ -1,8 +1,8 @@
 import datetime
 
 class Car:
-    car_id = 1
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, dealer_ID):
+
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -18,7 +18,7 @@ class Car:
         self.__price = price
         self.__location = location
         self.__type = type
-        self.__car_ID = "C" + str(self.car_id)
+        self.__car_ID = car_ID
         self.__dealer_ID = dealer_ID
         self.__review = []
     

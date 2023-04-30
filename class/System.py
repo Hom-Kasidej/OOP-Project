@@ -1,6 +1,5 @@
-from ..models.EnumClass import ThailandProvince
-from ..models.User import Dealer,Renter
-from ..models.Car import Car
+from ..config.EnumClass import ThailandProvince
+from .User import *
 import datetime
 
 class System:
@@ -36,16 +35,14 @@ class System:
                     return True , user # return as tuple of logic and user instance
         return False , None 
 
-    def add_car(self,brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID):
+    def add_car(self,car):
         try :
-            car = Car(brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, car_ID, dealer_ID)
             self.__car_list.append(car)
             return True
         except :
             return False
 
     def get_account_list(self):
-        print(self.__account_list)
         return self.__account_list
 
     def search_car(self,location,start_date,end_date):
@@ -82,65 +79,62 @@ class System:
                 if target_car.get_car_ID() == target_car_id:
                     self.__car_list.remove(target_car)
                     return True
+            return False
         except :
-            return False    
-    
+            return False     
+
     def make_rent(self,rlocation,car,check_in_date,check_out_date):
         pass
-    
-    def register(self, firstname, lastname, username, password, confirm_password, account_type):
-        def check_username(username):
-            if len(username) < 8:
-                return True 
-            return False
-
-        if check_username(username=username): # if username not pass privacy return False
-            return False
-
-        def check_password(password, confirm_password):
-            def has_number(string):
-                return any(char.isdigit() for char in string)
-
-            def has_special_char(string):
-                special_chars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-                for char in special_chars:
-                    if char in string:
-                        return True
-                return False
-            
-            if(password != confirm_password):
-                return True # return if password not eqaul to confirm_password
-            
-            if(len(password) < 8):
-                return True # return if length of password is less than 8
-            
-            if(not has_number(password)):
-                return True # return if password not has number
-            
-            if(not has_special_char(password)):
-                return True # return if password not has special_char
-            
-            return False
-        
-        if check_password(password=password,confirm_password=confirm_password): # if password not match requirement 
-            return False 
-
-        if account_type == 'R':
-            new_user = Renter(name= firstname + ' ' + lastname,username=username, password=password)
-        elif account_type == 'D':
-            new_user = Dealer(name= firstname + ' ' + lastname,username=username, password=password)
-        self.add_account(new_user)
-        return True
 
     def login(self, username, password):
         logic , returned_user = self.check_account(username=username,password=password)
         if logic:
-            # print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
+            print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
             return returned_user
-        return False
+        print('Login failed')
     
-    def get_car(self,target_car_ID):
-        for car in self.__car_list:
-            if car.get_car_ID() == target_car_ID:
-                return car
-        return False
+    def register(self):
+        Bfname = True
+        Blname = True
+        Busername = True
+        Bpassword = True
+        Bconfirmpass = True
+        IsCancel = True
+        while Bfname or Blname or Busername or Bpassword or Bconfirmpass or IsCancel:
+            if(Bfname):
+                input_fname = input('Enter your first name: ') # input first name
+                if(input_fname != ""):
+                    Bfname = False
+                
+            if(Blname):
+                input_lname = input('Enter your last name: ')# input last name
+                if(input_lname != ""):
+                    Blname = False
+
+            if(Busername):
+                input_username = input('Enter username: ')
+                if(input_username != ""):
+                    Busername = False
+                
+            if(Bpassword):
+                input_password = input('Enter password: ')
+                if(input_password != ""):
+                    Bpassword = False
+
+            if(Bconfirmpass):
+                input_confirm_pass = input('Confirm password: ')
+                if input_password == input_confirm_pass:
+                    if(input_confirm_pass != ""):
+                        Bconfirmpass = False
+
+            choose = input('type R for Renter or D for Dealer? : ') #user choose to be a renter or a dealer
+
+            if(Bfname or Blname or Busername or Bpassword or Bconfirmpass):
+                print('PLease fill all requirements')
+
+        if choose == 'R':
+            new_user = Renter(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+        elif choose == 'D':
+            new_user = Dealer(name= input_fname + ' ' + input_lname,username=input_username, password=input_password)
+        self.add_account(new_user)
+        print('Register success')

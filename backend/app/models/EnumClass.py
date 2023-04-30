@@ -185,3 +185,13 @@ class CarColor(Enum):
     SILVER = "Silver"
     BROWN = "Brown"
     OTHER = "Other"
+
+class CreditCard(Enum):
+    MasterCard = "MasterCard"
+    Visa = "Visa"
+    JCB = "JCB"
+
+class CashType(Enum):
+    Bank = "Bank"
+    Cash = "Cash"
+    Promptpay = "Promptpay"
