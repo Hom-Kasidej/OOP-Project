@@ -120,4 +120,3 @@ class Car:
             if review == target_review:
                 self.__review.remove(review)
                 return True
-        return False

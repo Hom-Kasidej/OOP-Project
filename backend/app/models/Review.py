@@ -36,4 +36,4 @@ class Review:
             
     def set_info(self,data):
         self.__info = data
-        
+     
