@@ -1,6 +1,7 @@
-from .EnumClass import *
+from .EnumClass import CarBrand, GearType, FuelType, GPSType,ThailandProvince,CarType,CarColor,Gender
 from .Car import Car
 from .User import Dealer,Renter
+from passlib.context import CryptContext
 
 car_info_dict = {
     "Car1" : {
@@ -12,10 +13,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 5049,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Black",
+        "color" : CarColor.BLACK,
         "features" : "Automatic_seat",
         "info" : "",
-        "images" : "",
+        "images" : ["./IMG/honda.jpg","./IMG/honda.jpg"],
         "price" : 3000,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -30,10 +31,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 12654,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Black",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 3500,
         "location" : ThailandProvince.Chiang_Mai,
         "type" : CarType.CITY,
@@ -48,10 +49,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 9801,
         "gps_type" : GPSType.CarTrack,
-        "color" : "White",
+        "color" : CarColor.BLACK,
         "features" : "Bluetooth_Music",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 4000,
         "location" : ThailandProvince.Chiang_Rai,
         "type" : CarType.CONVERTIBLE,
@@ -66,10 +67,10 @@ car_info_dict = {
         "fuel_type" : FuelType.EV,
         "distance" : "1500",
         "gps_type" : GPSType.Otoplug,
-        "color" : "blonde",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 2500,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -84,10 +85,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 15602,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Yellow",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 3999,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -102,10 +103,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Diesel,
         "distance" : 25040,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Dark_Blue",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 3000,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -120,10 +121,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 9800,
         "gps_type" : GPSType.Others, 
-        "color" : "Gray",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 1900,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -138,10 +139,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 16094,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Black",
+        "color" : CarColor.BLACK,
         "features" : "LED SCREEN",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 4599,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -156,10 +157,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Diesel,
         "distance" : 30071,
         "gps_type" : GPSType.Others,
-        "color" : "White",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 2990,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -174,10 +175,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 3540,
         "gps_type" : GPSType.NoneGPS,
-        "color" : "Red",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 15000,
         "location" : ThailandProvince.Nan,
         "type" : CarType.CONVERTIBLE,
@@ -192,10 +193,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 14200,
         "gps_type" : GPSType.Others,
-        "color" : "Yellow",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 2600,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -211,10 +212,10 @@ car_info_dict = {
         "fuel_type" : FuelType.Benzien,
         "distance" : 18005,
         "gps_type" : GPSType.Eyefleet,
-        "color" : "Purple",
+        "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : "",
+        "images" : [""],
         "price" : 2099,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -234,7 +235,7 @@ dict1 = {
         'birth_date' : '01/01/2001',
         'info' : 'i love cars',
         'username' : 'johnnysoodlo',
-        'password' : 'johnny123'
+        'password' : '$2b$12$vTzR0PkHraZK.8neWVpZuug.VMzA6Sc9G3nE6Fcs2eh2yME6kykgW'
     },
     'Dealer2' : {
         'name' : 'Somchai Hi',
@@ -243,7 +244,7 @@ dict1 = {
         'birth_date' : '11/12/1974',
         'info' : 'Hi',
         'username' : 'somchai911',
-        'password' : 'jgdsg1231'
+        'password' : '$2b$12$bUl3StqydVqSy6YEpuXRsOGtXOu9xzp53PnYtCNS1vp7lKisLH6Z6'
     },
     'Dealer3' : {
         'name' : 'Naruto Sasuke',
@@ -252,7 +253,7 @@ dict1 = {
         'birth_date' : '11/12/1950',
         'info' : 'Hi hello',
         'username' : '1qgqgqwg',
-        'password' : 'aegki12124'
+        'password' : '$2b$12$c172wlneb/Eeoh9OUizkx./Nb5b7K5uxBLxqmp2gLIJ/N81roxxoS'
     },
     'Dealer4' : {
         'name' : 'Somsri Haha',
@@ -261,7 +262,7 @@ dict1 = {
         'birth_date' : '20/12/1999',
         'info' : 'Hi wassup',
         'username' : 'waegweg134',
-        'password' : '12412hlkk'
+        'password' : '$2b$12$4JIjPOvzhTa6eVJUl9zpy.fbby6RHuAIsBNcBYWgAtGO1qVIUfeNO'
     }
 }
 
@@ -279,7 +280,7 @@ renter_info_dict = {
         "birth_date" : "28/02/1987",
         "info" : "Good guy",
         "username" : "Sompong",
-        "password" : "ripperisthedog"
+        "password" : "$2b$12$NP/LKdF4Y0yMBvZ15LhbhuqlSzI2f4c/c3R8QObP4NIzx6b58NxX6"
     },
     "Renter2" : {
         "name" : "Somsej Eatgrass",
@@ -288,7 +289,7 @@ renter_info_dict = {
         "birth_date" : "01/01/1999",
         "info" : "Capybaraaa",
         "username" : "GrossGrass",
-        "password" : "iwantgrass555"
+        "password" : "$2b$12$1Sh7SzzO.yvbP2h9o2wyRelIUKNOASyHuP9qwnY8IgJBMi52kmlzq"
     },
     "Renter" : {
         "name" : "Somjett DashForward",
@@ -297,7 +298,7 @@ renter_info_dict = {
         "birth_date" : "09/02/2000",
         "info" : "Get out of my way!",
         "username" : "Jett",
-        "password" : "333Jettiseasytowin"
+        "password" : "$2b$12$KBOJD0c/M2ycufJcUvILjua9a83YN6a/glnDTedpIandezi2qoI8."
     },
      "Renter4" : {
         "name" : "Gekko keeact",
@@ -306,7 +307,7 @@ renter_info_dict = {
         "birth_date" : "21/07/2002",
         "info" : "Let's go my buddy",
         "username" : "Anonymous",
-        "password" : "OhhoMyBuddy"
+        "password" : "$2b$12$FIYYawWoIu7gpdgZAhjPSuPJL8zTFu7i4.ytmj/8.NlF50aDQTEWO"
     },
     "Renter5" : {
         "name" : "MrBeast Latkrabang",
@@ -315,7 +316,7 @@ renter_info_dict = {
         "birth_date" : "11/11/1970",
         "info" : "Who want my money!!",
         "username" : "Beast",
-        "password" : "1234567890"
+        "password" : "$2b$12$7yQOeQgGX2/H8ks6uRPoWuOGVi9ezMi4l8cEImIHnwEvjKlSzKxQa"
     },
     "Renter6" : {
         "name" : "RestWith OOP",
@@ -324,7 +325,7 @@ renter_info_dict = {
         "birth_date" : "19/03/2003",
         "info" : "OOP Project is waiting for you",
         "username" : "OOPInwZa",
-        "password" : "KhorGradeANoiKrub55"
+        "password" : "$2b$12$pSQc5sV4VkrLDBuN09YfmeLCNQTKXgviIyZfaU7nvl3cf5nU0uGtC"
     },
     "Renter7" : {
         "name" : "Somying butchai",
@@ -333,7 +334,7 @@ renter_info_dict = {
         "birth_date" : "20/09/1997",
         "info" : "I want cheap price",
         "username" : "Somying",
-        "password" : "yinglowcost"
+        "password" : "$2b$12$KSVK1p51Gz603RxpU.Dpn.h8UgJE00dwxfZsMzIkWFgoYO93zp3Ei"
     },
     "Renter8" : {
         "name" : "Somrew Lookmo",
@@ -342,7 +343,7 @@ renter_info_dict = {
         "birth_date" : "05/05/1955",
         "info" : "Parents give me money :)",
         "username" : "Want bullet?",
-        "password" : "666satan666"
+        "password" : "$2b$12$cpqcZ6ny4wfAM8BFDM4Wtea51UjN22Q9js7nQ92Xru6ZoAIXx1.qy"
     },
     "Renter9" : {
         "name" : "Respect Thailand",
@@ -351,7 +352,7 @@ renter_info_dict = {
         "birth_date" : "20/02/1969",
         "info" : "Long Live King",
         "username" : "LoveKing",
-        "password" : "999KingKing"
+        "password" : "$2b$12$S2yMjvkJuUld3fgxjYMo5ObrLF3mWms8PGthsBgR0KaAB8GR9id32"
     },
      "Renter10" : {
         "name" : "Frog obob",
@@ -360,7 +361,7 @@ renter_info_dict = {
         "birth_date" : "27/12/1975",
         "info" : "Born in R9",
         "username" : "King9",
-        "password" : "loveKingThailand"
+        "password" : "$2b$12$n/yimqbzMpyRN36H9/jPnusY84MG0k3CxXi9ZfEiJZB4lbGTSS.wm"
     }
 }
 

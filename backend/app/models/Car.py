@@ -1,5 +1,5 @@
 import datetime
-from ..models.Review import Review
+from .Review import Review
 
 class Car:
     car_id = 1
@@ -82,8 +82,14 @@ class Car:
         for rent in rent_list:
             check_st = rent.get_check_in_date()
             check_ed = rent.get_check_out_date()
-            date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
-            date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+            if type(check_st) == str :
+                date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
+            else:
+                date_st = check_st
+            if type(check_ed) == str:
+                date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+            else:
+                date_ed = check_ed
             if type(start_date) == str: 
                 date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
             else:

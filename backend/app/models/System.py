@@ -1,8 +1,8 @@
-from ..models.EnumClass import ThailandProvince,Status
-from ..models.User import Dealer,Renter
-from ..models.Car import Car
-from ..models.Rent import Rent
-from ..models.Payment import CashPayment,CreditCardPayment
+from .EnumClass import ThailandProvince,Status
+from .User import Dealer,Renter
+from .Car import Car
+from .Rent import Rent
+from .Payment import CashPayment,CreditCardPayment
 import datetime
 
 class System:
@@ -47,7 +47,6 @@ class System:
             return False
 
     def get_account_list(self):
-        print(self.__account_list)
         return self.__account_list
 
     def search_car(self,location,start_date,end_date):
@@ -56,7 +55,8 @@ class System:
             car_rent_list = []
             for rent in self.__rent_list:
                 if rent.get_rent_car() == target_car:
-                    car_rent_list.append(rent)
+                    if rent.get_rent_status() != Status.Canceled:
+                        car_rent_list.append(rent)
             if(location == target_car.get_location() and target_car.check_status(start_date,end_date,car_rent_list)):
                 return_car_list.append(target_car)
         return return_car_list
@@ -70,7 +70,8 @@ class System:
                 car_rent_list = []
                 for rent in self.__rent_list:
                     if rent.get_rent_car() == target_car:
-                        car_rent_list.append(rent)
+                        if rent.get_rent_status() != Status.Canceled:
+                            car_rent_list.append(rent)
                 if(location == target_car.get_location() and target_car.check_status(start_date,end_date,car_rent_list)):
                     return_car_list.append(target_car)
         return return_car_list
@@ -92,6 +93,7 @@ class System:
         # try :
             if not isinstance(user,Renter):
                 return False
+            
             new_rent = Rent(check_in_date,check_out_date,Status.Pending,car,car.get_location())
             self.__rent_list.append(new_rent)
             user.add_to_incomplete_list(rent=new_rent)
@@ -135,11 +137,19 @@ class System:
         
         if check_password(password=password,confirm_password=confirm_password): # if password not match requirement 
             return False 
+        
+        from passlib.context import CryptContext
+        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+        def get_password_hash(password):
+            return pwd_context.hash(password)
+        
+        hashed_password = get_password_hash(password=password)
 
         if account_type == 'R':
-            new_user = Renter(name= firstname + ' ' + lastname,username=username, password=password)
+            new_user = Renter(name= firstname + ' ' + lastname,username=username, password=hashed_password)
         elif account_type == 'D':
-            new_user = Dealer(name= firstname + ' ' + lastname,username=username, password=password)
+            new_user = Dealer(name= firstname + ' ' + lastname,username=username, password=hashed_password)
         self.add_account(new_user)
         return True
 
