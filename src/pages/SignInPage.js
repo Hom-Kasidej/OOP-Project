@@ -28,8 +28,14 @@ export default function SignIn() {
       password: data.get('password'),
     });
 
-    const endpoint = `http://127.0.0.1:8000/login?username=${data.get('username')}&password=${data.get('password')}`;
-    axios.get(endpoint).then((response) => {
+    const paylode = JSON.stringify({
+      'username' : data.get('username'),
+      'password' : data.get('password')
+    });
+
+
+    const endpoint = 'http://127.0.0.1:8000/Users/login-token';
+    axios.post(endpoint,paylode).then((response) => {
         navigate('/');
         console.log(response.data);
         console.log(response.data.access_token);

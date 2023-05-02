@@ -13,11 +13,11 @@ router = APIRouter()
 async def get_cars():
     return {"Cars" : dataSystem.get_car_list()}
 
-@router.get("/search_car/{location}/",tags=["Car"])
+@router.post("/search_car/{location}/",tags=["Car"])
 async def search_car(location : ThailandProvince,start_date : datetime.date = datetime.datetime.now().date(),end_date : datetime.date =   datetime.datetime.now().date() + datetime.timedelta(days=3) ):
     return {"Cars" : dataSystem.search_car(start_date=start_date,end_date=end_date,location=location)}
 
-@router.get("/search_cartype",tags=["Car"])
+@router.post("/search_cartype",tags=["Car"])
 async def search_cartype(cartype : CarType):
     return {"Cars" : dataSystem.search_cartype(cartype=cartype)}
 
