@@ -35,7 +35,7 @@ class UserInDB(BaseModelUser):
     hashed_password: str
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="Users/login-token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/Users/Login")
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password,hashed_password)
@@ -55,7 +55,6 @@ def authenticate_user(username: str, password: str):
         return False
     if not verify_password(password,user.get_password()):
         return False
-    
     return user
 
 def create_access_token(data: dict, expires_delta: timedelta or None = None):
@@ -130,12 +129,12 @@ async def get_rents(user_id : int):
         return {"Massage":"All Rents","in_complete" : in_complete,"canceled" : canceled,"success" : success}
     return {"Massage" : "Fail to load User"}
 
-@router.post("/Users/login-token", response_model=Token)
-async def login_for_access_token(from_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(from_data.username,from_data.password)
+@router.post("/Users/Login", response_model=Token)
+async def login_for_access_token(formmodel : OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(formmodel.username,formmodel.password)
     if not user :
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password", headers={"WWW-Autheticate" : "Bearer"})
-
+    
     access_token_expire = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub" : user.get_username()},expires_delta=access_token_expire)
     return {"access_token" : access_token, "token_type" : "bearer"}
