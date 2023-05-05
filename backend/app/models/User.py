@@ -3,7 +3,7 @@ from .Car import Car
 class User:
     ID = 1
 
-    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None):
+    def __init__(self, name = None, profile_image = None, gender = None, birth_date = None, info = None, username = None, password = None,type = None):
         self._name = name
         self._profile_image = profile_image
         self._gender = gender
@@ -12,6 +12,8 @@ class User:
         self._username = username
         self._password = password
         self._id = User.ID
+        self._disabled = False
+        self._type = type
         User.ID += 1
 
     def get_name(self):
@@ -37,6 +39,9 @@ class User:
     
     def get_id(self):
         return self._id        
+    
+    def get_disabled(self):
+        return self._dis
 
     def set_name(self,data):
         self._name = data
@@ -59,18 +64,10 @@ class User:
     def set_password(self,data):
         self._password = data
 
-    def view_car(self):
-        pass
-
-    def cancel_payment(self):
-        pass
-
-    def cancel_rent(self):
-        pass
             
 class Dealer(User):
     def __init__(self, name, username, password, profile_image = None, gender = None, birth_date = None, info = None, accept_rate : float = 0 , respond_rate : float = 0, respond_time : float = 0):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password )
+        super().__init__(name, profile_image, gender, birth_date, info, username, password , "Dealer")
         self.__accept_rate = accept_rate
         self.__respond_rate = respond_rate
         self.__respond_time = respond_time
@@ -94,20 +91,11 @@ class Dealer(User):
         except :
             return False
 
-    def modify_car(self):
-        pass
-
-    def delete_car(self,system, target_car): #remove Car in self.car_list
-        try : 
-            if target_car in system.get_car_lisst():
-                system.del_car(target_car)
-                return True
-        except :
-            return False         
+      
 
 class Renter(User):
     def __init__(self, name, username, password, profile_image = None, gender = None, birth_date = None, info = None):
-        super().__init__(name, profile_image, gender, birth_date, info, username, password) 
+        super().__init__(name, profile_image, gender, birth_date, info, username, password , "Renter")
         self.__success_list = []
         self.__canceled_list = []
         self.__incomplete_list = []

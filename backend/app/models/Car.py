@@ -1,9 +1,8 @@
 import datetime
-from ..models.Review import Review
 
 class Car:
     car_id = 1
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, dealer_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, price, location, type, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -15,7 +14,6 @@ class Car:
         self.__color = color 
         self.__features = features 
         self.__info = info 
-        self.__images = images 
         self.__price = price
         self.__location = location
         self.__type = type
@@ -60,9 +58,6 @@ class Car:
     def get_info(self):
         return self.__info
 
-    def get_images(self):
-        return self.__images
-
     def get_price(self):
         return self.__price
     
@@ -82,8 +77,14 @@ class Car:
         for rent in rent_list:
             check_st = rent.get_check_in_date()
             check_ed = rent.get_check_out_date()
-            date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
-            date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+            if type(check_st) == str :
+                date_st = datetime.datetime.strptime(check_st, '%Y-%m-%d').date()
+            else:
+                date_st = check_st
+            if type(check_ed) == str:
+                date_ed = datetime.datetime.strptime(check_ed, '%Y-%m-%d').date()
+            else:
+                date_ed = check_ed
             if type(start_date) == str: 
                 date_check_st = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
             else:
@@ -101,17 +102,3 @@ class Car:
     def add_carstatus(self,rent):
         self.__carstatus.update_carstatus(rent=rent)
 
-    def create_review(self,review_dict,renter):
-        try :
-            new_review = Review(review_dict["star"],review_dict["date"],review_dict["info"],review_dict["hour"],review_dict["minute"],renter)
-            self.__review.append(new_review)
-            return True
-        except :
-            return False
-        
-    def del_review(self,target_review):
-        for review in self.__review:
-            if review == target_review:
-                self.__review.remove(review)
-                return True
-        return False

@@ -1,8 +1,8 @@
-from ..models.EnumClass import ThailandProvince,Status
-from ..models.User import Dealer,Renter
-from ..models.Car import Car
-from ..models.Rent import Rent
-from ..models.Payment import CashPayment,CreditCardPayment
+from .EnumClass import ThailandProvince,Status
+from .User import Dealer,Renter
+from .Car import Car
+from .Rent import Rent
+from .Payment import CashPayment,CreditCardPayment
 import datetime
 
 class System:
@@ -47,7 +47,6 @@ class System:
             return False
 
     def get_account_list(self):
-        print(self.__account_list)
         return self.__account_list
 
     def search_car(self,location,start_date,end_date):
@@ -56,7 +55,8 @@ class System:
             car_rent_list = []
             for rent in self.__rent_list:
                 if rent.get_rent_car() == target_car:
-                    car_rent_list.append(rent)
+                    if rent.get_rent_status() != Status.Canceled:
+                        car_rent_list.append(rent)
             if(location == target_car.get_location() and target_car.check_status(start_date,end_date,car_rent_list)):
                 return_car_list.append(target_car)
         return return_car_list
@@ -70,7 +70,8 @@ class System:
                 car_rent_list = []
                 for rent in self.__rent_list:
                     if rent.get_rent_car() == target_car:
-                        car_rent_list.append(rent)
+                        if rent.get_rent_status() != Status.Canceled:
+                            car_rent_list.append(rent)
                 if(location == target_car.get_location() and target_car.check_status(start_date,end_date,car_rent_list)):
                     return_car_list.append(target_car)
         return return_car_list
@@ -92,10 +93,11 @@ class System:
         # try :
             if not isinstance(user,Renter):
                 return False
+            
             new_rent = Rent(check_in_date,check_out_date,Status.Pending,car,car.get_location())
             self.__rent_list.append(new_rent)
             user.add_to_incomplete_list(rent=new_rent)
-            return True
+            return new_rent
         # except :
             # return False
 
@@ -149,19 +151,6 @@ class System:
             # print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
             return returned_user
         return False
-    
-    def modify(self,user,userdict,gender):
-        try :
-            user.set_name(userdict["name"])
-            user.set_profile_image(userdict["profile_image"])
-            user.set_gender(gender)
-            user.set_birth_date(userdict["birth_date"])
-            user.set_info(userdict["info"])
-            user.set_username(userdict["username"])
-            user.set_password(userdict["password"])
-            return True
-        except :
-            return False
 
     def get_car(self,target_car_ID):
         for car in self.__car_list:
@@ -204,7 +193,7 @@ class System:
                                       ,payment_status=Status.Pending)
             self.add_payment(new_payment) 
             rent.update_payment(new_payment)
-            return True
+            return new_payment
         except :
             return False
 
@@ -222,6 +211,12 @@ class System:
                                             ,payment_status=Status.Pending)
             self.add_payment(new_payment) 
             rent.update_payment(new_payment)
-            return True
+            return new_payment
         except :
             return False
+        
+    def get_username(self,username):
+        for user in self.__account_list:
+            if user.get_username() == username:
+                return user
+        return False
