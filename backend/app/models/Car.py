@@ -1,5 +1,4 @@
 import datetime
-from .Review import Review
 
 class Car:
     car_id = 1
@@ -103,16 +102,3 @@ class Car:
     def add_carstatus(self,rent):
         self.__carstatus.update_carstatus(rent=rent)
 
-    def create_review(self,review_dict,renter):
-        try :
-            new_review = Review(review_dict["star"],review_dict["date"],review_dict["info"],review_dict["hour"],review_dict["minute"],renter)
-            self.__review.append(new_review)
-            return True
-        except :
-            return False
-        
-    def del_review(self,target_review):
-        for review in self.__review:
-            if review == target_review:
-                self.__review.remove(review)
-                return True

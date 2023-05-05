@@ -151,19 +151,6 @@ class System:
             # print('Login success, ' + 'Welcome back! ' + str(type(returned_user)) + ' ' + returned_user.get_name())
             return returned_user
         return False
-    
-    def modify(self,user,userdict,gender):
-        try :
-            user.set_name(userdict["name"])
-            user.set_profile_image(userdict["profile_image"])
-            user.set_gender(gender)
-            user.set_birth_date(userdict["birth_date"])
-            user.set_info(userdict["info"])
-            user.set_username(userdict["username"])
-            user.set_password(userdict["password"])
-            return True
-        except :
-            return False
 
     def get_car(self,target_car_ID):
         for car in self.__car_list:

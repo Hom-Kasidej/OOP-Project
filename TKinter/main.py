@@ -50,14 +50,8 @@ class Application:
                 print("Renter")
             elif (self.user['_type'] == 'Dealer'):
                 self.profile_page = DProfile(self.master,user,self.logout_callback,self.postcar_callback)
-                print(self.user['_id'])
                 print("Dealer")
-            else:
-                print("test")
         return
-    
-    def modify_cat_callback(self,car):
-        pass
 
     def logout_callback(self):
         self.user = None
@@ -68,6 +62,9 @@ class Application:
 
     def show_home_page(self , event):
         self.show_page(self.home_page)
+
+    def back_home(self):
+        self.show_page(self.home_page)
     
     def show_login_page(self):
         self.show_page(self.login_page)
@@ -77,7 +74,10 @@ class Application:
         self.show_page(self.profile_page)
 
     def search_car_callback(self,car_list):
-        self.availble_car = AvailableCarPage(self.master,car_list,self.select_callback)
+        if self.user:
+            self.availble_car = AvailableCarPage(self.master,car_list,self.select_callback,user_status=True,login_callback=self.show_login_page)
+        else:
+            self.availble_car = AvailableCarPage(self.master,car_list,self.select_callback,user_status=False,login_callback=self.show_login_page)
         self.show_page(self.availble_car)
 
     def search_carType_callback(self,car_list):
@@ -103,7 +103,7 @@ class Application:
                 print(response.json())
                 data_dict = response.json()
                 rent_id = data_dict['Rent']['_Rent__rent_no']
-                self.payment_page = PaymentForm(self.master,rent_id,self.user['_id'])
+                self.payment_page = PaymentForm(self.master,rent_id,self.user['_id'],self.back_home)
                 self.show_page(self.payment_page)
                 
         else:

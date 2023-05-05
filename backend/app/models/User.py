@@ -91,16 +91,7 @@ class Dealer(User):
         except :
             return False
 
-    def modify_car(self):
-        pass
-
-    def delete_car(self,system, target_car): #remove Car in self.car_list
-        try : 
-            if target_car in system.get_car_lisst():
-                system.del_car(target_car)
-                return True
-        except :
-            return False         
+      
 
 class Renter(User):
     def __init__(self, name, username, password, profile_image = None, gender = None, birth_date = None, info = None):

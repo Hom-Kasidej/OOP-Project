@@ -96,17 +96,17 @@ class PostCarPage:
         """
         # Update the car information with the values in the text fields
         self.brand = self.brand_entry.get()
-        self.release_year = int(self.release_year_entry.get())
-        self.seats = int(self.seats_entry.get())
-        self.doors = int(self.doors_entry.get())
+        self.release_year = self.release_year_entry.get()
+        self.seats = self.seats_entry.get()
+        self.doors = self.doors_entry.get()
         self.gear_type = self.gear_type_entry.get()
         self.fuel_type = self.fuel_type_entry.get()
-        self.distance = float(self.distance_entry.get())
+        self.distance = self.distance_entry.get()
         self.gps_type = self.gps_type_entry.get()
         self.color = self.color_entry.get()
         self.features = self.features_entry.get()
         self.info = self.info_entry.get()
-        self.price = float(self.price_entry.get())
+        self.price = self.price_entry.get()
         self.location = self.location_entry.get()
         self.cartype = self.cartype_entry.get()
         self.user_id = self.user['_id']

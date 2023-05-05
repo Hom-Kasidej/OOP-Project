@@ -4,7 +4,8 @@ import requests
 
 
 class PaymentForm:
-    def __init__(self, master,rent_id,user_id):
+    def __init__(self, master,rent_id,user_id,home_callback):
+        self.home_callback = home_callback
         self.master = master
         self.user_id = user_id
         self.rent_id = rent_id
@@ -54,7 +55,6 @@ class PaymentForm:
         self.card_number = tk.Entry(self.credit_card_frame)
 
         self.card_name_label = tk.Label(self.credit_card_frame, text="Card Name:")
-        self.card_name_label.pack()
 
         self.card_name = tk.Entry(self.credit_card_frame)
 
@@ -65,6 +65,11 @@ class PaymentForm:
         self.card_cvc_label = tk.Label(self.credit_card_frame, text="Card CVC:")
 
         self.card_cvc = tk.Entry(self.credit_card_frame)
+
+        self.card_date_label = tk.Label(self.credit_card_frame, text="Date:")
+
+        self.card_date = tk.Entry(self.credit_card_frame)
+        self.card_date.insert(tk.END, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         # Create submit button
         self.submit_button = tk.Button(self.payment_frame, text="Submit", command=self.submit_payment)
@@ -106,17 +111,20 @@ class PaymentForm:
                     response3 = requests.post(api_endpoint3)
                     if response3.ok:
                         print(response3.json())
+                        self.home_callback()
 
         elif self.payment_type.get() == "Credit Card":
             # Get the values from the Credit Card Payment inputs
+            payment_date = self.card_date.get()
             payload = {
                 'rent_id' : self.rent_id,
                 'payment_type' : 1,
                 'card_type' : self.card_type.get(),
                 'card_number' : self.card_number.get(),
                 'card_name' : self.card_name.get(),
-                'card_expire' : self.card_expire.get(),
-                'card_cvc' : self.card_cvc.get()
+                'card_exp' : self.card_expire.get(),
+                'card_CVC' : self.card_cvc.get(),
+                'date' : payment_date
             }
             api_endpoint = f'http://localhost:8000/Rents/{self.rent_id}/Payment'
             response = requests.post(api_endpoint, json=payload)
@@ -135,29 +143,30 @@ class PaymentForm:
                     response3 = requests.post(api_endpoint3)
                     if response3.ok:
                         print(response3.json())
+                        self.home_callback()
                         
     def show(self):
-        self.payment_frame.pack()
-        self.payment_type_label.pack()
-        self.cash_radio_button.pack()
-        self.credit_card_radio_button.pack()
-        self.cash_frame.pack()
-        self.payment_frame.pack()
-        self.cash_type_label.pack()
-        self.cash_type_dropdown.pack()
-        self.cash_date_label.pack()
-        self.cash_date.pack()
-        self.card_type_label.pack()
-        self.card_type_dropdown.pack()
-        self.card_number_label.pack()
-        self.card_number.pack()
-        self.card_name_label.pack()
-        self.card_name.pack()
-        self.card_expire_label.pack()
-        self.card_expire.pack()
-        self.card_cvc_label.pack()
-        self.card_cvc.pack()
-        self.submit_button.pack()
+        self.payment_frame.pack(padx= 10,pady=5)
+        self.payment_type_label.pack(padx= 10,pady=5)
+        self.cash_radio_button.pack(padx= 10,pady=5)
+        self.credit_card_radio_button.pack(padx= 10,pady=5)
+        self.cash_frame.pack(padx= 10,pady=5)
+        self.payment_frame.pack(padx= 10,pady=5)
+        self.cash_type_label.pack(padx= 10,pady=5)
+        self.cash_type_dropdown.pack(padx= 10,pady=5)
+        self.cash_date_label.pack(padx= 10,pady=5)
+        self.cash_date.pack(padx= 10,pady=5)
+        self.card_type_label.pack(padx= 10,pady=5)
+        self.card_type_dropdown.pack(padx= 10,pady=5)
+        self.card_number_label.pack(padx= 10,pady=5)
+        self.card_number.pack(padx= 10,pady=5)
+        self.card_name_label.pack(padx= 10,pady=5)
+        self.card_name.pack(padx= 10,pady=5)
+        self.card_expire_label.pack(padx= 10,pady=5)
+        self.card_expire.pack(padx= 10,pady=5)
+        self.card_cvc_label.pack(padx= 10,pady=5)
+        self.card_cvc.pack(padx= 10,pady=5)
+        self.submit_button.pack(padx= 10,pady=5)
 
     def hide(self):
         self.payment_frame.pack_forget()

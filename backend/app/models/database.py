@@ -14,12 +14,3 @@ for renter in renters:
 
 for car in cars:
     dataSystem.add_car(car)
-
-
-new_rent = Rent(check_in_date="2023-12-10",check_out_date="2023-12-31",rent_status=Status.Pending,rent_car=cars[0],location=cars[0].get_location())
-
-rent_user = dataSystem.get_user(14)
-
-dataSystem.add_rent(new_rent)
-if isinstance(rent_user,Renter):
-    rent_user.add_to_incomplete_list(new_rent)

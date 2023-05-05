@@ -222,8 +222,8 @@ dealer_info_dict = {
         'gender' : Gender.Male,
         'birth_date' : '01/01/2001',
         'info' : 'i love cars',
-        'username' : 'johnny',
-        'password' : 'johnny'
+        'username' : 'd',
+        'password' : 'd'
     },
     'Dealer2' : {
         'name' : 'Somchai Hi',
@@ -267,7 +267,7 @@ renter_info_dict = {
         "gender" : Gender.Male,
         "birth_date" : "28/02/1987",
         "info" : "Good guy",
-        "username" : "s",
+        "username" : "r",
         "password" : "r"
     },
     "Renter2" : {

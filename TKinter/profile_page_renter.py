@@ -1,4 +1,5 @@
 import tkinter as tk
+import requests
 
 class ProfilePage:
     def __init__(self,master, user, switch_callback):
@@ -28,7 +29,10 @@ class ProfilePage:
             self.note_text.insert('end',self.user['_info'])
 
 
+        self.see_history = tk.Button(self.master, text="History",command=self.history)
+
         self.switch_to_login_button = tk.Button(self.master, text="Log out", command=self.switch_callback)
+
     
 
     def show(self):
@@ -39,6 +43,7 @@ class ProfilePage:
         self.female_radio.pack(padx=10, pady=10, anchor=tk.W)
         self.note_label.pack(padx=10, pady=10, anchor=tk.W)
         self.note_text.pack(padx=10, pady=10, anchor=tk.W)
+        self.see_history.pack(padx=10, pady=10, anchor=tk.W)
         self.switch_to_login_button.pack(padx=10, pady=10, anchor=tk.W)
 
     def hide(self):
@@ -49,11 +54,28 @@ class ProfilePage:
         self.female_radio.pack_forget()
         self.note_label.pack_forget()
         self.note_text.pack_forget()
+        self.see_history.pack_forget()
         self.switch_to_login_button.pack_forget()
 
     def delete(self):
         self.delete
 
+    def history(self):
+        api_endpoint = f"http://localhost:8000/User/Rents?user_id={self.user['_id']}"
+        response = requests.post(api_endpoint)
+        if response.ok:
+            incomplete = []
+            success = []
+            data_dict = response.json()
+            print("Rent History ID : ")
+            if data_dict["in_complete"] != []:
+                for rent in data_dict["in_complete"]:
+                    incomplete.append(rent['_Rent__rent_no'])
+            if data_dict["success"] != []:
+                for rent in data_dict["success"]:
+                    success.append(rent['_Rent__rent_no'])
+            print("Incomplete : ",incomplete)
+            print("Success : ",success)
 
 # root = tk.Tk()
 # root.title("Login/Sign-up App")
