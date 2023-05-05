@@ -97,7 +97,7 @@ class System:
             new_rent = Rent(check_in_date,check_out_date,Status.Pending,car,car.get_location())
             self.__rent_list.append(new_rent)
             user.add_to_incomplete_list(rent=new_rent)
-            return True
+            return new_rent
         # except :
             # return False
 
@@ -137,19 +137,11 @@ class System:
         
         if check_password(password=password,confirm_password=confirm_password): # if password not match requirement 
             return False 
-        
-        from passlib.context import CryptContext
-        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-        def get_password_hash(password):
-            return pwd_context.hash(password)
-        
-        hashed_password = get_password_hash(password=password)
 
         if account_type == 'R':
-            new_user = Renter(name= firstname + ' ' + lastname,username=username, password=hashed_password)
+            new_user = Renter(name= firstname + ' ' + lastname,username=username, password=password)
         elif account_type == 'D':
-            new_user = Dealer(name= firstname + ' ' + lastname,username=username, password=hashed_password)
+            new_user = Dealer(name= firstname + ' ' + lastname,username=username, password=password)
         self.add_account(new_user)
         return True
 
@@ -214,7 +206,7 @@ class System:
                                       ,payment_status=Status.Pending)
             self.add_payment(new_payment) 
             rent.update_payment(new_payment)
-            return True
+            return new_payment
         except :
             return False
 
@@ -232,6 +224,12 @@ class System:
                                             ,payment_status=Status.Pending)
             self.add_payment(new_payment) 
             rent.update_payment(new_payment)
-            return True
+            return new_payment
         except :
             return False
+        
+    def get_username(self,username):
+        for user in self.__account_list:
+            if user.get_username() == username:
+                return user
+        return False

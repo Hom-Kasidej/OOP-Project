@@ -16,7 +16,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "Automatic_seat",
         "info" : "",
-        "images" : ["./IMG/honda.jpg","./IMG/honda.jpg"],
         "price" : 3000,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -34,7 +33,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 3500,
         "location" : ThailandProvince.Chiang_Mai,
         "type" : CarType.CITY,
@@ -52,7 +50,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "Bluetooth_Music",
         "info" : "",
-        "images" : [""],
         "price" : 4000,
         "location" : ThailandProvince.Chiang_Rai,
         "type" : CarType.CONVERTIBLE,
@@ -70,11 +67,10 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 2500,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
-        "dealer_ID" : 2
+        "dealer_ID" : 1
     },
     "Car5" : {
         "brand" : CarBrand.Chevrolet,
@@ -88,7 +84,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 3999,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -106,7 +101,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 3000,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -124,7 +118,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 1900,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -142,7 +135,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "LED SCREEN",
         "info" : "",
-        "images" : [""],
         "price" : 4599,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -160,7 +152,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 2990,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -178,7 +169,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 15000,
         "location" : ThailandProvince.Nan,
         "type" : CarType.CONVERTIBLE,
@@ -196,7 +186,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 2600,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.SUV,
@@ -215,7 +204,6 @@ car_info_dict = {
         "color" : CarColor.BLACK,
         "features" : "",
         "info" : "",
-        "images" : [""],
         "price" : 2099,
         "location" : ThailandProvince.Bangkok,
         "type" : CarType.CITY,
@@ -227,15 +215,15 @@ Car_instance_list = []
 for i in car_info_dict:
     Car_instance_list.append(Car(**car_info_dict[i]))
 
-dict1 = {
+dealer_info_dict = {
     'Dealer1' : {
         'name' : 'Johnny Peepo',
         'profile_image': 'None',
         'gender' : Gender.Male,
         'birth_date' : '01/01/2001',
         'info' : 'i love cars',
-        'username' : 'johnnysoodlo',
-        'password' : '$2b$12$vTzR0PkHraZK.8neWVpZuug.VMzA6Sc9G3nE6Fcs2eh2yME6kykgW'
+        'username' : 'johnny',
+        'password' : 'johnny'
     },
     'Dealer2' : {
         'name' : 'Somchai Hi',
@@ -268,8 +256,8 @@ dict1 = {
 
 dealer_instance_list = []
 
-for dealer in dict1:
-    dealer_instance_list.append(Dealer(**dict1[dealer]))
+for dealer in dealer_info_dict:
+    dealer_instance_list.append(Dealer(**dealer_info_dict[dealer]))
 
 
 renter_info_dict = {
@@ -279,8 +267,8 @@ renter_info_dict = {
         "gender" : Gender.Male,
         "birth_date" : "28/02/1987",
         "info" : "Good guy",
-        "username" : "Sompong",
-        "password" : "$2b$12$NP/LKdF4Y0yMBvZ15LhbhuqlSzI2f4c/c3R8QObP4NIzx6b58NxX6"
+        "username" : "s",
+        "password" : "r"
     },
     "Renter2" : {
         "name" : "Somsej Eatgrass",

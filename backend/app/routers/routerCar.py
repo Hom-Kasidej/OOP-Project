@@ -22,26 +22,26 @@ async def search_cartype(cartype : CarType):
     return {"Cars" : dataSystem.search_cartype(cartype=cartype)}
 
 @router.post("/Post_car/",tags=["Car"])
-async def post_car(brand : CarBrand, gear_type : GearType, fuel_type : FuelType, gps_type : GPSType, color : CarColor, cartype : CarType, location : ThailandProvince, cardict : dict):
+async def post_car(brand : CarBrand, gear_type : GearType, fuel_type : FuelType, gps_type : GPSType, color : CarColor, cartype : CarType, location : ThailandProvince,
+                   release_year : int,seats : int, doors: int, distance : int, features : str,info : str,price : int,dealer_id : int):
     # for car in dataSystem.get_car_list():
     #     if car.get_car_ID() == :
     #         return {"Car ID already exists"}
     if ( dataSystem.add_car(Car(brand=brand
-                           , release_year = cardict["release_year"]
-                           , seats = cardict["seats"]
-                           , doors = cardict["doors"]
+                           , release_year = release_year
+                           , seats = seats
+                           , doors = doors
                            , gear_type = gear_type
                            , fuel_type = fuel_type
-                           , distance = cardict["distance"]
+                           , distance = distance
                            , gps_type = gps_type
                            , color = color
-                           , features = cardict["features"]
-                           , info = cardict["info"]
-                           , images = cardict["images"]
-                           , price = cardict["price"]
+                           , features = features
+                           , info = info
+                           , price = price
                            , location = location
                            , type = cartype
-                           , dealer_ID = cardict["dealer_ID"]))):
+                           , dealer_ID = dealer_id))):
         return {"Message" : "Car posted"}
     return {"Message" : "Post car failed"}
 
@@ -52,7 +52,7 @@ async def delete_car(target_car_id : int):
     else :
         return {"Message" : f"Car with id : {target_car_id} not found"}
 
-@router.get("/View_car/{target_car_id}",tags=["Car"])
+@router.post("/View_car/{target_car_id}",tags=["Car"])
 async def get_car(target_car_id : int):
     if (dataSystem.get_car(target_car_id)) :
         return {"Car" : dataSystem.get_car(target_car_id)}

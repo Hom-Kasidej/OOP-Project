@@ -26,11 +26,10 @@ async def make_rent(user_id : int, car_id : int,start_date : datetime.date,end_d
     elif not user :
         return {"Message" : "Fail to load user"}
     else:
-        if dataSystem.make_rent(check_in_date=start_date,
-                            check_out_date=end_date,
-                            car=car,
-                            user=user) :
-            return {"Massage" : "Create Rent Successfully"}
+        new_rent = dataSystem.make_rent(check_in_date=start_date,check_out_date=end_date,car=car,user=user)
+        if new_rent :
+            return {"Massage" : "Create Rent Successfully",
+                    "Rent" : new_rent}
         else:
             return {"Massage" : "Create Rent Fail"}
 
@@ -51,13 +50,15 @@ async def make_payment(paymentdict : dict,rent_id : int):
     duration = (end_date - start_date).days
     payment_amount = duration * car.get_price()
     if paymentdict["payment_type"] == 0: # CashPayment
-        if dataSystem.create_CashPayment(paymentdict,amount=payment_amount,rent=rent):
-            return {"Massage" : "Create CashPayment successfully"}
+        new_payment = dataSystem.create_CashPayment(paymentdict,amount=payment_amount,rent=rent)
+        if new_payment:
+            return {"Massage" : "Create CashPayment successfully","Payment" : new_payment}
         else:
             return {"Massage" : "Can not create Payment"}
     elif paymentdict["payment_type"] == 1: # CreditCardPayment
-        if dataSystem.create_CreditPayment(paymentdict,amount=payment_amount,rent=rent):
-            return {"Massage" : "Create CreditCardPayment successfully"}
+        new_payment = dataSystem.create_CreditPayment(paymentdict,amount=payment_amount,rent=rent)
+        if new_payment :
+            return {"Massage" : "Create CreditCardPayment successfully", "Payment" : new_payment}
         else:
             return {"Massage" : "Can not create Payment"}
 

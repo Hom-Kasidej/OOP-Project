@@ -3,7 +3,7 @@ from .Review import Review
 
 class Car:
     car_id = 1
-    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, images, price, location, type, dealer_ID):
+    def __init__(self, brand, release_year, seats, doors, gear_type, fuel_type, distance, gps_type, color, features, info, price, location, type, dealer_ID):
         self.__brand = brand 
         self.__release_year = release_year 
         self.__seats = seats 
@@ -15,7 +15,6 @@ class Car:
         self.__color = color 
         self.__features = features 
         self.__info = info 
-        self.__images = images 
         self.__price = price
         self.__location = location
         self.__type = type
@@ -59,9 +58,6 @@ class Car:
 
     def get_info(self):
         return self.__info
-
-    def get_images(self):
-        return self.__images
 
     def get_price(self):
         return self.__price
